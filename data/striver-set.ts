@@ -173,6 +173,12 @@ export const dsaQuestions: DSAQuestion[] = [
   },
   {
     topic: "Linked List",
+    question: "Sort a linked list of 0s, 1s and 2s",
+    difficulty: "Medium",
+    link: "https://www.geeksforgeeks.org/problems/given-a-linked-list-of-0s-1s-and-2s-sort-it/1",
+  },
+  {
+    topic: "Linked List",
     question: "Merge two sorted Linked List",
     difficulty: "Medium",
     link: "https://leetcode.com/problems/merge-two-sorted-lists/",
