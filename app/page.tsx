@@ -39,7 +39,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Search, CheckCircle2, ListChecks, BarChart } from "lucide-react";
-import { dsaQuestions } from "@/data/striver-set";
+import { dsaQuestions } from "@/data/questions";
 import type {
   DSAQuestion,
   CompletedQuestionsMap,
