@@ -5,12 +5,10 @@ export interface DSAQuestion {
   link: string;
 }
 
-export interface CompletedQuestionsMap {
-  [questionId: string]: boolean;
-}
+export type CompletedQuestionsMap = Record<string, boolean>;
 
 export interface TopicCount {
-  [topic: string]: number;
+  [key: string]: number;
 }
 
 export interface DifficultyCount {
@@ -26,11 +24,32 @@ export interface CompletionCount {
 }
 
 export interface TopicCompletion {
-  [topic: string]: CompletionCount;
+  [key: string]: {
+    completed: number;
+    total: number;
+    percentage: number;
+  };
 }
 
 export interface DifficultyCompletion {
-  Easy: CompletionCount;
-  Medium: CompletionCount;
-  Hard: CompletionCount;
+  Easy: {
+    completed: number;
+    total: number;
+    percentage: number;
+  };
+  Medium: {
+    completed: number;
+    total: number;
+    percentage: number;
+  };
+  Hard: {
+    completed: number;
+    total: number;
+    percentage: number;
+  };
 }
+
+export type TabValue = "questions" | "progress";
+export type CompletedFilter = "all" | "completed" | "pending";
+export type SortKey = keyof DSAQuestion;
+export type SortDirection = "asc" | "desc";
