@@ -38,7 +38,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Search, CheckCircle2, ListChecks, BarChart } from "lucide-react";
+import {
+  Search,
+  CheckCircle2,
+  ListChecks,
+  BarChart,
+  Download,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { dsaQuestions } from "@/data/questions";
 import type {
   DSAQuestion,
@@ -470,29 +477,35 @@ export default function DSAQuestionsTable(): JSX.Element {
   const difficultyCompletion = calculateDifficultyCompletion();
 
   return (
-    <div className="container mx-auto max-w-7xl py-8 px-4">
-      <h1 className="text-xl font-bold mb-6 ">Practice DSA Questions</h1>
+    <div className="container mx-auto max-w-7xl py-4 sm:py-8 px-2 sm:px-4">
+      <h1 className="text-xl font-bold mb-4 sm:mb-6">Practice DSA Questions</h1>
 
-      <Tabs value={activeTab} onValueChange={handleTabChange} className="mb-6">
-        <div className="flex justify-between items-center mb-4">
-          <TabsList className="grid w-fit grid-cols-2">
+      <Tabs
+        value={activeTab}
+        onValueChange={handleTabChange}
+        className="mb-4 sm:mb-6"
+      >
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-4">
+          <TabsList className="grid w-full sm:w-fit grid-cols-2">
             <TabsTrigger value="questions" className="flex items-center gap-2">
               <ListChecks className="h-4 w-4" />
-              Questions
+              <span className="hidden sm:inline">Questions</span>
+              <span className="sm:hidden">Q</span>
             </TabsTrigger>
             <TabsTrigger value="progress" className="flex items-center gap-2">
               <BarChart className="h-4 w-4" />
-              Progress
+              <span className="hidden sm:inline">Progress</span>
+              <span className="sm:hidden">P</span>
             </TabsTrigger>
           </TabsList>
 
           {isClient && (
-            <div className=" bg-card p-2 rounded-lg border shadow-sm">
-              <div className="flex flex-col md:flex-row text-sm justify-between items-start md:items-center gap-4">
-                <h2 className=" font-medium">Completed</h2>
+            <div className="bg-card p-2 rounded-lg border shadow-sm w-full sm:w-auto">
+              <div className="flex flex-row text-sm justify-between items-center gap-2 sm:gap-4">
+                <h2 className="font-medium">Completed</h2>
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="h-4 w-4 text-green-500" />
-                  <span className="">
+                  <span>
                     {completedCounts.completed} of {completedCounts.total} (
                     {completedCounts.percentage}%)
                   </span>
@@ -503,12 +516,12 @@ export default function DSAQuestionsTable(): JSX.Element {
         </div>
 
         <TabsContent value="questions">
-          <div className="flex flex-col md:flex-row gap-4 mb-6">
+          <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 mb-4 sm:mb-6">
             <form onSubmit={handleSearchSubmit} className="relative flex-1">
               <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
               <Input
                 placeholder="Search questions..."
-                className="pl-8 w-fit"
+                className="pl-8 w-full"
                 value={inputSearch}
                 onChange={handleSearchChange}
               />
@@ -517,39 +530,44 @@ export default function DSAQuestionsTable(): JSX.Element {
               </button>
             </form>
 
-            <Select value={difficulty} onValueChange={handleDifficultyChange}>
-              <SelectTrigger className="w-full md:w-[150px]">
-                <SelectValue placeholder="Difficulty" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Difficulties</SelectItem>
-                <SelectItem value="Easy">
-                  Easy ({difficultyCounts.Easy})
-                </SelectItem>
-                <SelectItem value="Medium">
-                  Medium ({difficultyCounts.Medium})
-                </SelectItem>
-                <SelectItem value="Hard">
-                  Hard ({difficultyCounts.Hard})
-                </SelectItem>
-              </SelectContent>
-            </Select>
+            <div className="flex gap-2 sm:gap-4">
+              <Select value={difficulty} onValueChange={handleDifficultyChange}>
+                <SelectTrigger className="w-full sm:w-[150px]">
+                  <SelectValue placeholder="Difficulty" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Difficulties</SelectItem>
+                  <SelectItem value="Easy">
+                    Easy ({difficultyCounts.Easy})
+                  </SelectItem>
+                  <SelectItem value="Medium">
+                    Medium ({difficultyCounts.Medium})
+                  </SelectItem>
+                  <SelectItem value="Hard">
+                    Hard ({difficultyCounts.Hard})
+                  </SelectItem>
+                </SelectContent>
+              </Select>
 
-            <Select value={showCompleted} onValueChange={handleCompletedChange}>
-              <SelectTrigger className="w-full md:w-[150px]">
-                <SelectValue placeholder="Filter by Status" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Questions</SelectItem>
-                <SelectItem value="completed">Completed</SelectItem>
-                <SelectItem value="pending">Pending</SelectItem>
-              </SelectContent>
-            </Select>
+              <Select
+                value={showCompleted}
+                onValueChange={handleCompletedChange}
+              >
+                <SelectTrigger className="w-full sm:w-[150px]">
+                  <SelectValue placeholder="Status" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Questions</SelectItem>
+                  <SelectItem value="completed">Completed</SelectItem>
+                  <SelectItem value="pending">Pending</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
           </div>
 
-          <div className="mb-6 flex flex-wrap gap-2">
+          <div className="mb-4 sm:mb-6 flex flex-wrap gap-2">
             <div className="bg-primary/10 text-primary rounded-md px-3 py-1 text-xs font-semibold">
-              Total Questions: {dsaQuestions.length}
+              Total: {dsaQuestions.length}
             </div>
             {Object.entries(topicCounts).map(([topicName, count]) => (
               <div
@@ -568,19 +586,39 @@ export default function DSAQuestionsTable(): JSX.Element {
             ))}
           </div>
 
-          <div className="flex mb-6 w-full items-start gap-3">
-            <div className="border rounded-md w-full min-h-[450px]">
+          <div className="flex mb-4 sm:mb-6 w-full items-start gap-3">
+            <div className="border rounded-md w-full min-h-[450px] overflow-x-auto">
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead className="w-[50px]">Done</TableHead>
-                    <TableHead className="cursor-pointer">Topic</TableHead>
-                    <TableHead className="cursor-pointer">Question</TableHead>
-                    <TableHead className="cursor-pointer">Difficulty</TableHead>
-                    <TableHead>Code Link</TableHead>
+                    <TableHead className="w-[50px]">
+                      <span className="sr-only">Status</span>
+                    </TableHead>
+                    <TableHead
+                      className="cursor-pointer"
+                      onClick={() => handleSort("topic")}
+                    >
+                      Topic
+                    </TableHead>
+                    <TableHead
+                      className="cursor-pointer"
+                      onClick={() => handleSort("question")}
+                    >
+                      Question
+                    </TableHead>
+                    <TableHead
+                      className="cursor-pointer"
+                      onClick={() => handleSort("difficulty")}
+                    >
+                      Difficulty
+                    </TableHead>
+                    <TableHead>
+                      <span className="hidden sm:inline">Code Link</span>
+                      <span className="sm:hidden">Link</span>
+                    </TableHead>
                   </TableRow>
                 </TableHeader>
-                <TableBody className="">
+                <TableBody>
                   {currentQuestions.length > 0 ? (
                     currentQuestions.map((question, index) => {
                       const questionId = createQuestionId(question);
@@ -590,9 +628,7 @@ export default function DSAQuestionsTable(): JSX.Element {
                         <TableRow
                           key={index}
                           className={
-                            isCompleted
-                              ? "bg-green-50 dark:bg-green-950/20 h-12"
-                              : " h-12"
+                            isCompleted ? "bg-green-950/20 h-12" : "h-12"
                           }
                         >
                           <TableCell>
@@ -608,38 +644,41 @@ export default function DSAQuestionsTable(): JSX.Element {
                               }
                             />
                           </TableCell>
-                          <TableCell className="font-medium">
+                          <TableCell className="font-medium whitespace-nowrap">
                             {question.topic}
                           </TableCell>
-                          <TableCell>{question.question}</TableCell>
+                          <TableCell className="max-w-[200px] sm:max-w-none truncate sm:whitespace-normal">
+                            {question.question}
+                          </TableCell>
                           <TableCell>
                             <Badge
-                              variant="default"
+                              variant="outline"
                               className={
                                 question.difficulty === "Easy"
-                                  ? "bg-green-100 text-green-700 hover:bg-green-100 hover:text-green-800"
+                                  ? "bg-green-950/20 text-green-500 border-green-500"
                                   : question.difficulty === "Medium"
-                                  ? "bg-yellow-100 text-yellow-700 hover:bg-yellow-100 hover:text-yellow-800"
-                                  : "bg-red-100 text-red-700 hover:bg-red-100 hover:text-red-800"
+                                  ? "bg-yellow-950/20 text-yellow-500 border-yellow-500"
+                                  : "bg-red-950/20 text-red-500 border-red-500"
                               }
                             >
                               {question.difficulty}
                             </Badge>
                           </TableCell>
-                          <TableCell className="text-blue-600">
+                          <TableCell>
                             {question.link !== "Link not provided" ? (
                               <a
                                 href={question.link}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="hover:underline"
+                                className="text-blue-500 hover:underline"
                               >
-                                View Problem
+                                <span className="hidden sm:inline">
+                                  View Problem
+                                </span>
+                                <span className="sm:hidden">View</span>
                               </a>
                             ) : (
-                              <span className="text-gray-400">
-                                Not available
-                              </span>
+                              <span className="text-muted-foreground">N/A</span>
                             )}
                           </TableCell>
                         </TableRow>
@@ -656,90 +695,109 @@ export default function DSAQuestionsTable(): JSX.Element {
               </Table>
             </div>
           </div>
-          <div className="mt-6">
-            <Pagination>
-              <PaginationContent>
-                <PaginationItem>
-                  <PaginationPrevious
-                    onClick={() =>
-                      handlePageChange(Math.max(1, currentPage - 1))
-                    }
-                    className={
-                      currentPage === 1 ? "pointer-events-none opacity-50" : ""
-                    }
-                  />
-                </PaginationItem>
 
-                {paginationItems()}
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div className="text-center text-sm text-muted-foreground order-2 sm:order-1">
+              Showing{" "}
+              {filteredQuestions.length > 0
+                ? (currentPage - 1) * questionsPerPage + 1
+                : 0}{" "}
+              to{" "}
+              {Math.min(
+                currentPage * questionsPerPage,
+                filteredQuestions.length
+              )}{" "}
+              of {filteredQuestions.length} questions
+            </div>
 
-                <PaginationItem>
-                  <PaginationNext
-                    onClick={() =>
-                      handlePageChange(Math.min(totalPages, currentPage + 1))
-                    }
-                    className={
-                      currentPage === totalPages
-                        ? "pointer-events-none opacity-50"
-                        : ""
-                    }
-                  />
-                </PaginationItem>
-              </PaginationContent>
-            </Pagination>
-          </div>
+            <div className="order-1 sm:order-2 w-full sm:w-auto">
+              <Pagination>
+                <PaginationContent>
+                  <PaginationItem>
+                    <PaginationPrevious
+                      onClick={() =>
+                        handlePageChange(Math.max(1, currentPage - 1))
+                      }
+                      className={
+                        currentPage === 1
+                          ? "pointer-events-none opacity-50"
+                          : ""
+                      }
+                    />
+                  </PaginationItem>
 
-          <div className="mt-4 text-center text-sm text-muted-foreground">
-            Showing{" "}
-            {filteredQuestions.length > 0
-              ? (currentPage - 1) * questionsPerPage + 1
-              : 0}{" "}
-            to{" "}
-            {Math.min(currentPage * questionsPerPage, filteredQuestions.length)}{" "}
-            of {filteredQuestions.length} questions
+                  {paginationItems()}
+
+                  <PaginationItem>
+                    <PaginationNext
+                      onClick={() =>
+                        handlePageChange(Math.min(totalPages, currentPage + 1))
+                      }
+                      className={
+                        currentPage === totalPages
+                          ? "pointer-events-none opacity-50"
+                          : ""
+                      }
+                    />
+                  </PaginationItem>
+                </PaginationContent>
+              </Pagination>
+            </div>
+
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={generateCSV}
+              className="flex items-center gap-2 order-3 w-full sm:w-auto"
+            >
+              <Download className="h-4 w-4" />
+              <span className="hidden sm:inline">Export to CSV</span>
+              <span className="sm:hidden">Export</span>
+            </Button>
           </div>
         </TabsContent>
 
         <TabsContent value="progress">
           {isClient ? (
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-6">
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Completion Summary</CardTitle>
                   <CardDescription>
                     Quick overview of your progress
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-                    <div className="bg-green-50 dark:bg-green-950/20 p-4 rounded-md">
-                      <div className="text-sm text-muted-foreground">
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4">
+                    <div className="bg-green-950/20 p-3 sm:p-4 rounded-md">
+                      <div className="text-xs sm:text-sm text-muted-foreground">
                         Total Completed
                       </div>
-                      <div className="text-2xl font-bold">
+                      <div className="text-xl sm:text-2xl font-bold">
                         {completedCounts.completed}
                       </div>
                     </div>
-                    <div className="bg-yellow-50 dark:bg-yellow-950/20 p-4 rounded-md">
-                      <div className="text-sm text-muted-foreground">
+                    <div className="bg-yellow-950/20 p-3 sm:p-4 rounded-md">
+                      <div className="text-xs sm:text-sm text-muted-foreground">
                         Remaining
                       </div>
-                      <div className="text-2xl font-bold">
+                      <div className="text-xl sm:text-2xl font-bold">
                         {completedCounts.total - completedCounts.completed}
                       </div>
                     </div>
-                    <div className="bg-blue-50 dark:bg-blue-950/20 p-4 rounded-md">
-                      <div className="text-sm text-muted-foreground">
+                    <div className="bg-blue-950/20 p-3 sm:p-4 rounded-md">
+                      <div className="text-xs sm:text-sm text-muted-foreground">
                         Total Questions
                       </div>
-                      <div className="text-2xl font-bold">
+                      <div className="text-xl sm:text-2xl font-bold">
                         {completedCounts.total}
                       </div>
                     </div>
-                    <div className="bg-purple-50 dark:bg-purple-950/20 p-4 rounded-md">
-                      <div className="text-sm text-muted-foreground">
+                    <div className="bg-purple-950/20 p-3 sm:p-4 rounded-md">
+                      <div className="text-xs sm:text-sm text-muted-foreground">
                         Completion Rate
                       </div>
-                      <div className="text-2xl font-bold">
+                      <div className="text-xl sm:text-2xl font-bold">
                         {completedCounts.percentage}%
                       </div>
                     </div>
@@ -748,24 +806,24 @@ export default function DSAQuestionsTable(): JSX.Element {
               </Card>
 
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Progress by Difficulty</CardTitle>
                   <CardDescription>
                     Your progress across different difficulty levels
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-6">
+                  <div className="space-y-4 sm:space-y-6">
                     <div>
                       <div className="flex justify-between items-center mb-2">
                         <div className="flex items-center gap-2">
                           <Badge
                             variant="outline"
-                            className="bg-green-100 text-green-800"
+                            className="bg-green-950/20 text-green-500 border-green-500"
                           >
                             Easy
                           </Badge>
-                          <span className="font-medium">
+                          <span className="font-medium text-sm sm:text-base">
                             {difficultyCompletion.Easy.completed} of{" "}
                             {difficultyCompletion.Easy.total} completed
                           </span>
@@ -776,7 +834,7 @@ export default function DSAQuestionsTable(): JSX.Element {
                       </div>
                       <Progress
                         value={difficultyCompletion.Easy.percentage}
-                        className="h-2 bg-green-100"
+                        className="h-2 bg-green-950/20"
                       />
                     </div>
 
@@ -785,11 +843,11 @@ export default function DSAQuestionsTable(): JSX.Element {
                         <div className="flex items-center gap-2">
                           <Badge
                             variant="outline"
-                            className="bg-yellow-100 text-yellow-800"
+                            className="bg-yellow-950/20 text-yellow-500 border-yellow-500"
                           >
                             Medium
                           </Badge>
-                          <span className="font-medium">
+                          <span className="font-medium text-sm sm:text-base">
                             {difficultyCompletion.Medium.completed} of{" "}
                             {difficultyCompletion.Medium.total} completed
                           </span>
@@ -800,7 +858,7 @@ export default function DSAQuestionsTable(): JSX.Element {
                       </div>
                       <Progress
                         value={difficultyCompletion.Medium.percentage}
-                        className="h-2 bg-yellow-100"
+                        className="h-2 bg-yellow-950/20"
                       />
                     </div>
 
@@ -809,11 +867,11 @@ export default function DSAQuestionsTable(): JSX.Element {
                         <div className="flex items-center gap-2">
                           <Badge
                             variant="outline"
-                            className="bg-red-100 text-red-800"
+                            className="bg-red-950/20 text-red-500 border-red-500"
                           >
                             Hard
                           </Badge>
-                          <span className="font-medium">
+                          <span className="font-medium text-sm sm:text-base">
                             {difficultyCompletion.Hard.completed} of{" "}
                             {difficultyCompletion.Hard.total} completed
                           </span>
@@ -824,7 +882,7 @@ export default function DSAQuestionsTable(): JSX.Element {
                       </div>
                       <Progress
                         value={difficultyCompletion.Hard.percentage}
-                        className="h-2 bg-red-100"
+                        className="h-2 bg-red-950/20"
                       />
                     </div>
                   </div>
@@ -832,23 +890,25 @@ export default function DSAQuestionsTable(): JSX.Element {
               </Card>
 
               <Card>
-                <CardHeader>
+                <CardHeader className="pb-2">
                   <CardTitle>Progress by Topic</CardTitle>
                   <CardDescription>
                     Your progress across different DSA topics
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                     {Object.entries(topicCompletion)
                       .sort(([, a], [, b]) => b.percentage - a.percentage)
                       .map(([topicName, data]) => (
                         <div
                           key={topicName}
-                          className="bg-muted/50 p-4 rounded-md"
+                          className="bg-muted/50 p-3 sm:p-4 rounded-md"
                         >
                           <div className="flex justify-between items-center mb-2">
-                            <span className="font-medium">{topicName}</span>
+                            <span className="font-medium text-sm sm:text-base truncate pr-2">
+                              {topicName}
+                            </span>
                             <span className="text-sm font-semibold">
                               {data.percentage}%
                             </span>
@@ -867,7 +927,7 @@ export default function DSAQuestionsTable(): JSX.Element {
               </Card>
             </div>
           ) : (
-            <div className="flex justify-center items-center p-12">
+            <div className="flex justify-center items-center p-8 sm:p-12">
               <div className="text-center">
                 <h3 className="text-lg font-medium">
                   Loading your progress...
