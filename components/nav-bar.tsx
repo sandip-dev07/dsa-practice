@@ -11,7 +11,7 @@ export function NavBar() {
       <div className="flex h-16 items-center px-4 max-w-7xl mx-auto">
         <div className="flex-1 flex items-center gap-2">
           <Code size={24} strokeWidth={2.4} className="text-red-500" />
-          <h1 className="text-xl font-semibold font-mono">Codex</h1>
+          <h1 className="text-xl font-semibold font-mono">Codxt</h1>
         </div>
         <div className="flex items-center gap-4">
           <ThemeToggle />
