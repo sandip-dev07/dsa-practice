@@ -1,0 +1,197 @@
+/* Editor container */
+.ProseMirror {
+  height: 100%;
+  overflow-y: auto;
+  padding: 1rem;
+}
+
+/* Code block styles */
+.ProseMirror pre {
+  background: #1e1e1e;
+  color: #d4d4d4;
+  font-family: 'Fira Code', monospace;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  position: relative;
+  margin: 1rem 0;
+}
+
+.ProseMirror pre code {
+  color: inherit;
+  padding: 0;
+  background: none;
+  font-size: 0.875rem;
+  font-family: inherit;
+  display: block;
+  white-space: pre;
+  overflow-x: auto;
+}
+
+/* Syntax highlighting */
+.ProseMirror pre .hljs-keyword {
+  color: #569cd6;
+}
+
+.ProseMirror pre .hljs-string {
+  color: #ce9178;
+}
+
+.ProseMirror pre .hljs-comment {
+  color: #6a9955;
+}
+
+.ProseMirror pre .hljs-function {
+  color: #dcdcaa;
+}
+
+.ProseMirror pre .hljs-number {
+  color: #b5cea8;
+}
+
+.ProseMirror pre .hljs-operator {
+  color: #d4d4d4;
+}
+
+.ProseMirror pre .hljs-punctuation {
+  color: #d4d4d4;
+}
+
+.ProseMirror pre .hljs-variable {
+  color: #9cdcfe;
+}
+
+.ProseMirror pre .hljs-class {
+  color: #4ec9b0;
+}
+
+.ProseMirror pre .hljs-params {
+  color: #9cdcfe;
+}
+
+/* Language indicator */
+.ProseMirror pre::before {
+  content: attr(data-language);
+  position: absolute;
+  top: 0.5rem;
+  right: 1rem;
+  font-size: 0.75rem;
+  color: #6a9955;
+  text-transform: uppercase;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* Code block toolbar */
+.ProseMirror pre .code-block-toolbar {
+  position: absolute;
+  top: 0.5rem;
+  right: 1rem;
+  display: flex;
+  gap: 0.5rem;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.ProseMirror pre:hover .code-block-toolbar {
+  opacity: 1;
+}
+
+.ProseMirror pre .code-block-toolbar button {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: #d4d4d4;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  font-size: 0.75rem;
+  transition: background 0.2s;
+}
+
+.ProseMirror pre .code-block-toolbar button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Dark mode adjustments */
+.dark .ProseMirror pre {
+  background: #1a1a1a;
+}
+
+.dark .ProseMirror pre .code-block-toolbar button {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.dark .ProseMirror pre .code-block-toolbar button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .ProseMirror {
+    padding: 0.5rem;
+  }
+
+  .ProseMirror pre {
+    padding: 0.5rem;
+  }
+
+  .ProseMirror pre code {
+    font-size: 0.75rem;
+  }
+}
+
+/* Scrollbar styling */
+.ProseMirror::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.ProseMirror::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.ProseMirror::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.ProseMirror::-webkit-scrollbar-thumb:hover {
+  background: #666;
+}
+
+.dark .ProseMirror::-webkit-scrollbar-thumb {
+  background: #444;
+}
+
+.dark .ProseMirror::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Code block scrollbar */
+.ProseMirror pre::-webkit-scrollbar {
+  height: 6px;
+}
+
+.ProseMirror pre::-webkit-scrollbar-track {
+  background: #2d2d2d;
+}
+
+.ProseMirror pre::-webkit-scrollbar-thumb {
+  background: #666;
+  border-radius: 3px;
+}
+
+.ProseMirror pre::-webkit-scrollbar-thumb:hover {
+  background: #888;
+}
+
+.dark .ProseMirror pre::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+.dark .ProseMirror pre::-webkit-scrollbar-thumb {
+  background: #444;
+}
+
+.dark .ProseMirror pre::-webkit-scrollbar-thumb:hover {
+  background: #555;
+} 

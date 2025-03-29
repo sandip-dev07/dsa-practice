@@ -1,15 +1,10 @@
 "use client";
-
-import { useSession, signOut } from "next-auth/react";
-import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
+import React from "react";
 import { UserNav } from "./UserNav";
 import { ThemeToggle } from "./theme-toggle";
 import { Code } from "lucide-react";
 
 export function NavBar() {
-  const { data: session, status } = useSession();
-  const router = useRouter();
 
   return (
     <nav className="border-b">

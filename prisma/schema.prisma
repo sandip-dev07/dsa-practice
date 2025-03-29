@@ -69,6 +69,16 @@ model Progress {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  notes     Notes?
 
   @@unique([userId, question], name: "userId_question")
+}
+
+model Notes {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  content   String
+  progressId String  @unique @db.ObjectId
+  progress  Progress @relation(fields: [progressId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

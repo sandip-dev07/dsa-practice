@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import '../styles/editor.css';
 
 @layer utilities {
   .text-balance {

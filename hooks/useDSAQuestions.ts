@@ -46,6 +46,7 @@ export function useDSAQuestions() {
   // State
   const [inputSearch, setInputSearch] = useState(search);
   const [completedQuestions, setCompletedQuestions] = useState<CompletedQuestionsMap>({});
+  const [notesData, setNotesData] = useState<Record<string, string>>({});
   const [filteredQuestions, setFilteredQuestions] = useState(dsaQuestions);
   const [isLoading, setIsLoading] = useState(true);
   const questionsPerPage = 10;
@@ -54,28 +55,36 @@ export function useDSAQuestions() {
   // Get unique topics for filter dropdown
   const topics = Array.from(new Set(dsaQuestions.map((q) => q.topic)));
 
-  // Load completed questions from API on initial render and when auth status changes
+  // Load completed questions and notes from API on initial render and when auth status changes
   useEffect(() => {
     const fetchProgress = async () => {
       if (status === "authenticated") {
         try {
-          const response = await fetch("/api/progress");
-          if (response.ok) {
-            const data = await response.json();
+          // Fetch completed questions
+          const progressResponse = await fetch("/api/progress");
+          if (progressResponse.ok) {
+            const progressData = await progressResponse.json();
             const progressMap: CompletedQuestionsMap = {};
-            data.forEach((item: { question: string; solved: boolean }) => {
+            progressData.forEach((item: { question: string; solved: boolean }) => {
               if (item.solved) {
                 progressMap[item.question] = true;
               }
             });
             setCompletedQuestions(progressMap);
           }
+
+          // Fetch notes
+          const notesResponse = await fetch("/api/notes");
+          if (notesResponse.ok) {
+            const notesData = await notesResponse.json();
+            setNotesData(notesData);
+          }
         } catch (error) {
-          console.error("Error fetching progress:", error);
-          toast.error("Failed to load progress");
+          toast.error("Failed to load data");
         }
       } else {
         setCompletedQuestions({});
+        setNotesData({});
       }
       setIsLoading(false);
     };
@@ -144,7 +153,6 @@ export function useDSAQuestions() {
         `Question ${newSolvedState ? "marked as completed" : "marked as incomplete"}`
       );
     } catch (error) {
-      console.error("Error updating progress:", error);
       toast.error("Failed to update progress");
     }
   };
@@ -254,6 +262,7 @@ export function useDSAQuestions() {
     currentQuestions,
     inputSearch,
     completedQuestions,
+    notesData,
     isLoading,
     currentPage: page,
     totalPages,
