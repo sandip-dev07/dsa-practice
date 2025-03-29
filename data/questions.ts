@@ -922,7 +922,7 @@ export const dsaQuestions: DSAQuestion[] = [
     link: "https://leetcode.com/problems/palindrome-linked-list/description/",
   },
   {
-    topic: "Two Pointers",
+    topic: "Linked List",
     question: "Partition List",
     difficulty: "Medium",
     link: "https://leetcode.com/problems/partition-list/description/",
