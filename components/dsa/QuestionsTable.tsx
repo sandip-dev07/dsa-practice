@@ -1,6 +1,6 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { Checkbox } from "@/components/ui/checkbox";
+import { ProgressCheckbox } from "@/components/progress-checkbox";
 import type { DSAQuestion, SortKey, SortDirection } from "@/types/question-types";
 import { createQuestionId } from "@/utils/dsa";
 
@@ -11,6 +11,7 @@ interface QuestionsTableProps {
   onSort: (key: SortKey) => void;
   currentSortKey: SortKey;
   currentSortDir: SortDirection;
+  isLoading?: boolean;
 }
 
 export function QuestionsTable({
@@ -20,6 +21,7 @@ export function QuestionsTable({
   onSort,
   currentSortKey,
   currentSortDir,
+  isLoading = false,
 }: QuestionsTableProps) {
   return (
     <div className="border rounded-md w-full min-h-[450px] overflow-x-auto">
@@ -55,20 +57,20 @@ export function QuestionsTable({
         </TableHeader>
         <TableBody>
           {questions.length > 0 ? (
-            questions.map((question, index) => {
+            questions.map((question) => {
               const questionId = createQuestionId(question);
               const isCompleted = completedQuestions[questionId];
 
               return (
                 <TableRow
                   key={questionId}
-                  className={isCompleted ? "bg-green-950/20 h-12" : "h-12"}
+                  className={isCompleted ? "bg-green-950/20" : ""}
                 >
                   <TableCell>
-                    <Checkbox
+                    <ProgressCheckbox
                       checked={isCompleted}
                       onCheckedChange={() => onToggleCompleted(questionId)}
-                      className={isCompleted ? "text-green-500 border-green-500" : ""}
+                      disabled={isLoading}
                     />
                   </TableCell>
                   <TableCell className="font-medium whitespace-nowrap">
