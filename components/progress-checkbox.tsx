@@ -1,48 +1,62 @@
 "use client";
 
-import { useSession } from "next-auth/react";
-import { Checkbox } from "@/components/ui/checkbox";
-import { LoginDialog } from "@/components/login-dialog";
-import { useProgress } from "@/hooks/use-progress";
 import { useState, useEffect } from "react";
-import { toast } from "sonner";
+import { Checkbox } from "@/components/ui/checkbox";
+import { useSession } from "next-auth/react";
+import { LoginDialog } from "@/components/login-dialog";
 import { useLoginDialog } from "@/hooks/use-login-dialog";
-import { cn } from "@/lib/utils";
 
 interface ProgressCheckboxProps {
-  checked: boolean;
-  onCheckedChange: (checked: boolean) => void;
-  disabled?: boolean;
-  className?: string;
+  question: string;
+  topic: string;
+  initialSolved?: boolean;
 }
 
-export function ProgressCheckbox({
-  checked,
-  onCheckedChange,
-  disabled = false,
-  className,
-}: ProgressCheckboxProps) {
-  const { status } = useSession();
+export function ProgressCheckbox({ question, topic, initialSolved = false }: ProgressCheckboxProps) {
+  const { data: session, status } = useSession();
+  const [solved, setSolved] = useState(initialSolved);
   const { onOpen } = useLoginDialog();
 
-  const handleChange = (checked: boolean) => {
+  useEffect(() => {
+    setSolved(initialSolved);
+  }, [initialSolved]);
+
+  const handleChange = async (checked: boolean) => {
     if (status === "unauthenticated") {
       onOpen();
       return;
     }
-    onCheckedChange(checked);
+
+    try {
+      const response = await fetch("/api/progress", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          question,
+          topic,
+          solved: checked,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to update progress");
+      }
+
+      setSolved(checked);
+    } catch (error) {
+      console.error("Error updating progress:", error);
+      // Revert the checkbox state on error
+      setSolved(!checked);
+    }
   };
 
   const checkbox = (
     <Checkbox
-      checked={checked}
+      checked={solved}
       onCheckedChange={handleChange}
-      disabled={disabled || status === "loading"}
-      className={cn(
-        checked && "text-green-500 border-green-500",
-        disabled && "opacity-50 cursor-not-allowed",
-        className
-      )}
+      className="h-4 w-4"
     />
   );
 

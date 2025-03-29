@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { authOptions } from "../auth/auth.config";
+import { authOptions } from "../auth/[...nextauth]/options";
 import { RateLimit } from "@/utils/rate-limit";
 
 const limiter = new RateLimit(15, 60 * 1000); // 15 requests per minute
