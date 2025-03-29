@@ -6,12 +6,21 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { LogOut } from "lucide-react";
+import { LogOut, LogIn } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useLoginDialog } from "@/hooks/use-login-dialog";
 
 export function UserNav() {
   const { data: session } = useSession();
+  const { onOpen } = useLoginDialog();
 
-  if (!session?.user) return null;
+  if (!session?.user) {
+    return (
+      <Button variant="outline" onClick={onOpen} className="gap-2">
+        Sign in
+      </Button>
+    );
+  }
 
   return (
     <DropdownMenu>
