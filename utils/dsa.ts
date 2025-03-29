@@ -1,7 +1,7 @@
 import type { DSAQuestion, TopicCount, DifficultyCount, CompletionCount, TopicCompletion, DifficultyCompletion } from "@/types/question-types";
 
 export const createQuestionId = (question: DSAQuestion): string => {
-  return `${question.topic}-${question.question}`.replace(/[^a-zA-Z0-9]/g, "_");
+  return question.question.toLowerCase().replace(/[^a-z0-9]/g, "_");
 };
 
 export const calculateTopicCounts = (questions: DSAQuestion[]): TopicCount => {

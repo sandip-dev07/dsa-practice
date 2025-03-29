@@ -2,6 +2,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import type { DSAQuestion, SortKey, SortDirection } from "@/types/question-types";
+import { createQuestionId } from "@/utils/dsa";
 
 interface QuestionsTableProps {
   questions: DSAQuestion[];
@@ -55,12 +56,12 @@ export function QuestionsTable({
         <TableBody>
           {questions.length > 0 ? (
             questions.map((question, index) => {
-              const questionId = `${question.topic}-${question.question}`.replace(/[^a-zA-Z0-9]/g, "_");
+              const questionId = createQuestionId(question);
               const isCompleted = completedQuestions[questionId];
 
               return (
                 <TableRow
-                  key={index}
+                  key={questionId}
                   className={isCompleted ? "bg-green-950/20 h-12" : "h-12"}
                 >
                   <TableCell>

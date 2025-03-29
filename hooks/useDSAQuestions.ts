@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useSession } from "next-auth/react";
 import { dsaQuestions } from "@/data/questions";
 import type {
   DSAQuestion,
@@ -23,51 +24,130 @@ import {
   calculateDifficultyCompletion,
   filterQuestions,
 } from "@/utils/dsa";
+import { toast } from "sonner";
+import { useLoginDialog } from "@/hooks/use-login-dialog";
 
 export function useDSAQuestions() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { data: session, status } = useSession();
+  const loginDialog = useLoginDialog();
 
-  // Get params from URL
-  const page = searchParams.get("page") || "1";
+  // Get URL params
+  const activeTab = searchParams.get("tab") || "questions";
   const search = searchParams.get("search") || "";
-  const topic = searchParams.get("topic") || "";
-  const difficulty = searchParams.get("difficulty") || "";
-  const sortKey = (searchParams.get("sortKey") as SortKey) || "";
+  const topic = searchParams.get("topic") || "all";
+  const difficulty = searchParams.get("difficulty") || "all";
+  const showCompleted = (searchParams.get("completed") as CompletedFilter) || "all";
+  const sortKey = (searchParams.get("sortKey") as SortKey) || "topic";
   const sortDir = (searchParams.get("sortDir") as SortDirection) || "asc";
-  const showCompleted = (searchParams.get("showCompleted") as CompletedFilter) || "all";
-  const activeTab = (searchParams.get("tab") as TabValue) || "questions";
+  const page = parseInt(searchParams.get("page") || "1", 10);
 
-  const [filteredQuestions, setFilteredQuestions] = useState<DSAQuestion[]>(dsaQuestions);
-  const [inputSearch, setInputSearch] = useState<string>(search);
+  // State
+  const [inputSearch, setInputSearch] = useState(search);
   const [completedQuestions, setCompletedQuestions] = useState<CompletedQuestionsMap>({});
-  const [isClient, setIsClient] = useState<boolean>(false);
-
+  const [filteredQuestions, setFilteredQuestions] = useState(dsaQuestions);
+  const [isLoading, setIsLoading] = useState(true);
   const questionsPerPage = 10;
-  const currentPage = Number.parseInt(page);
   const totalPages = Math.ceil(filteredQuestions.length / questionsPerPage);
 
   // Get unique topics for filter dropdown
   const topics = Array.from(new Set(dsaQuestions.map((q) => q.topic)));
 
-  // Load completed questions from localStorage on initial render
+  // Load completed questions from API on initial render and when auth status changes
   useEffect(() => {
-    setIsClient(true);
-    const storedCompleted = localStorage.getItem("completedDSAQuestions");
-    if (storedCompleted) {
-      setCompletedQuestions(JSON.parse(storedCompleted));
-    }
-  }, []);
+    const fetchProgress = async () => {
+      if (status === "authenticated") {
+        try {
+          const response = await fetch("/api/progress");
+          if (response.ok) {
+            const data = await response.json();
+            const progressMap: CompletedQuestionsMap = {};
+            data.forEach((item: { question: string; solved: boolean }) => {
+              if (item.solved) {
+                progressMap[item.question] = true;
+              }
+            });
+            setCompletedQuestions(progressMap);
+          }
+        } catch (error) {
+          console.error("Error fetching progress:", error);
+          toast.error("Failed to load progress");
+        }
+      } else {
+        setCompletedQuestions({});
+      }
+      setIsLoading(false);
+    };
 
-  // Save completed questions to localStorage whenever it changes
-  useEffect(() => {
-    if (isClient) {
-      localStorage.setItem(
-        "completedDSAQuestions",
-        JSON.stringify(completedQuestions)
-      );
+    fetchProgress();
+  }, [status]);
+
+  // Toggle completed state for a question
+  const toggleCompleted = async (questionId: string): Promise<void> => {
+    if (status !== "authenticated") {
+      loginDialog.onOpen();
+      return;
     }
-  }, [completedQuestions, isClient]);
+
+    // Find the question by its ID
+    const question = dsaQuestions.find(q => createQuestionId(q) === questionId);
+    if (!question) return;
+
+    const newSolvedState = !completedQuestions[questionId];
+
+    // Optimistically update UI
+    setCompletedQuestions((prev) => ({
+      ...prev,
+      [questionId]: newSolvedState,
+    }));
+
+    try {
+      const response = await fetch("/api/progress", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          question: questionId,
+          topic: question.topic,
+          solved: newSolvedState,
+        }),
+      });
+
+      if (!response.ok) {
+        // Revert optimistic update if request failed
+        setCompletedQuestions((prev) => ({
+          ...prev,
+          [questionId]: !newSolvedState,
+        }));
+
+        const data = await response.json();
+        if (response.status === 429) {
+          const reset = response.headers.get("X-RateLimit-Reset");
+          const resetInSeconds = reset ? parseInt(reset, 10) : 60;
+          toast.error(
+            `Rate limit exceeded. Please wait ${resetInSeconds} seconds before trying again.`
+          );
+        } else {
+          throw new Error(data.error || "Failed to update progress");
+        }
+        return;
+      }
+
+      const data = await response.json();
+      if (data.error) {
+        throw new Error(data.error);
+      }
+
+      toast.success(
+        `Question ${newSolvedState ? "marked as completed" : "marked as incomplete"}`
+      );
+    } catch (error) {
+      console.error("Error updating progress:", error);
+      toast.error("Failed to update progress");
+    }
+  };
 
   // Create a new URLSearchParams instance
   const createQueryString = (params: Record<string, string>): string => {
@@ -130,14 +210,6 @@ export function useDSAQuestions() {
     router.push(`?${createQueryString({ sortKey: key, sortDir: direction })}`);
   };
 
-  // Toggle completed state for a question
-  const toggleCompleted = (questionId: string): void => {
-    setCompletedQuestions((prev) => ({
-      ...prev,
-      [questionId]: !prev[questionId],
-    }));
-  };
-
   // Apply filters and search
   useEffect(() => {
     const filtered = filterQuestions(dsaQuestions, {
@@ -157,10 +229,18 @@ export function useDSAQuestions() {
     setInputSearch(search);
   }, [search]);
 
+  // Update current page when URL param changes
+  useEffect(() => {
+    const newPage = parseInt(searchParams.get("page") || "1", 10);
+    if (newPage !== page) {
+      router.push(`?${createQueryString({ page: newPage.toString() })}`);
+    }
+  }, [searchParams]);
+
   // Get current page questions
   const currentQuestions = filteredQuestions.slice(
-    (currentPage - 1) * questionsPerPage,
-    currentPage * questionsPerPage
+    (page - 1) * questionsPerPage,
+    page * questionsPerPage
   );
 
   // Calculate statistics
@@ -171,13 +251,11 @@ export function useDSAQuestions() {
   const difficultyCompletion = calculateDifficultyCompletion(dsaQuestions, completedQuestions);
 
   return {
-    // State
-    filteredQuestions,
     currentQuestions,
     inputSearch,
     completedQuestions,
-    isClient,
-    currentPage,
+    isLoading,
+    currentPage: page,
     totalPages,
     questionsPerPage,
     topics,
@@ -193,8 +271,6 @@ export function useDSAQuestions() {
     showCompleted,
     sortKey,
     sortDir,
-
-    // Handlers
     handleTabChange,
     handleSearchChange,
     handleSearchSubmit,

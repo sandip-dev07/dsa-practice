@@ -7,6 +7,9 @@ import { QuestionsTable } from "@/components/dsa/QuestionsTable";
 import { Filters } from "@/components/dsa/Filters";
 import { Pagination } from "@/components/dsa/Pagination";
 import { ProgressDashboard } from "@/components/dsa/ProgressDashboard";
+import { TableSkeleton } from "@/components/dsa/TableSkeleton";
+import { ProgressSkeleton } from "@/components/dsa/ProgressSkeleton";
+import { UserNav } from "@/components/UserNav";
 import { useDSAQuestions } from "@/hooks/useDSAQuestions";
 
 export default function DSAQuestionsPage(): JSX.Element {
@@ -14,7 +17,7 @@ export default function DSAQuestionsPage(): JSX.Element {
     currentQuestions,
     inputSearch,
     completedQuestions,
-    isClient,
+    isLoading,
     currentPage,
     totalPages,
     questionsPerPage,
@@ -51,8 +54,6 @@ export default function DSAQuestionsPage(): JSX.Element {
 
   return (
     <div className="container mx-auto max-w-7xl py-4 sm:py-8 px-2 sm:px-4">
-      <h1 className="text-xl font-bold mb-4 sm:mb-6">Practice DSA Questions</h1>
-
       <Tabs
         value={activeTab}
         onValueChange={handleTabChange}
@@ -72,7 +73,7 @@ export default function DSAQuestionsPage(): JSX.Element {
             </TabsTrigger>
           </TabsList>
 
-          {isClient && (
+          {!isLoading && (
             <div className="bg-card p-2 rounded-lg border shadow-sm w-full sm:w-auto">
               <div className="flex flex-row text-sm justify-between items-center gap-2 sm:gap-4">
                 <h2 className="font-medium">Completed</h2>
@@ -80,7 +81,10 @@ export default function DSAQuestionsPage(): JSX.Element {
                   <CheckCircle2 className="h-4 w-4 text-green-500" />
                   <span>
                     {completedCounts.completed} of {completedCounts.total} (
-                    {completedCounts.percentage}%)
+                    {Math.round(
+                      (completedCounts.completed / completedCounts.total) * 100
+                    ) || 0}
+                    %)
                   </span>
                 </div>
               </div>
@@ -104,42 +108,41 @@ export default function DSAQuestionsPage(): JSX.Element {
             difficultyCounts={difficultyCounts}
           />
 
-          <div className="flex mb-4 sm:mb-6 w-full items-start gap-3">
-            <QuestionsTable
-              questions={currentQuestions}
-              completedQuestions={completedQuestions}
-              onToggleCompleted={toggleCompleted}
-              onSort={handleSort}
-              currentSortKey={sortKey}
-              currentSortDir={sortDir}
-            />
-          </div>
+          {isLoading ? (
+            <TableSkeleton />
+          ) : (
+            <>
+              <div className="flex mb-4 sm:mb-6 w-full items-start gap-3">
+                <QuestionsTable
+                  questions={currentQuestions}
+                  completedQuestions={completedQuestions}
+                  onToggleCompleted={toggleCompleted}
+                  onSort={handleSort}
+                  currentSortKey={sortKey}
+                  currentSortDir={sortDir}
+                />
+              </div>
 
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={handlePageChange}
-            totalItems={currentQuestions.length}
-            itemsPerPage={questionsPerPage}
-          />
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={handlePageChange}
+                totalItems={currentQuestions.length}
+                itemsPerPage={questionsPerPage}
+              />
+            </>
+          )}
         </TabsContent>
 
         <TabsContent value="progress">
-          {isClient ? (
+          {isLoading ? (
+            <ProgressSkeleton />
+          ) : (
             <ProgressDashboard
               completedCounts={completedCounts}
               difficultyCompletion={difficultyCompletion}
               topicCompletion={topicCompletion}
             />
-          ) : (
-            <div className="flex justify-center items-center p-8 sm:p-12">
-              <div className="text-center">
-                <h3 className="text-lg font-medium">Loading your progress...</h3>
-                <p className="text-muted-foreground">
-                  Please wait while we load your progress data.
-                </p>
-              </div>
-            </div>
           )}
         </TabsContent>
       </Tabs>
