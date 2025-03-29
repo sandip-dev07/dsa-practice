@@ -22,30 +22,45 @@ export function QuestionsTable({
   currentSortDir,
 }: QuestionsTableProps) {
   return (
-    <div className="border rounded-md w-full min-h-[450px] overflow-x-auto">
+    <div className="border rounded-md w-full min-h-[450px] overflow-x-auto bg-card">
       <Table>
         <TableHeader>
-          <TableRow>
+          <TableRow className="hover:bg-muted/50 border-b border-border">
             <TableHead className="w-[50px]">
               <span className="sr-only">Status</span>
             </TableHead>
             <TableHead
-              className="cursor-pointer"
+              className="cursor-pointer hover:text-primary transition-colors"
               onClick={() => onSort("topic")}
             >
               Topic
+              {currentSortKey === "topic" && (
+                <span className="ml-2 text-muted-foreground">
+                  {currentSortDir === "asc" ? "↑" : "↓"}
+                </span>
+              )}
             </TableHead>
             <TableHead
-              className="cursor-pointer"
+              className="cursor-pointer hover:text-primary transition-colors"
               onClick={() => onSort("question")}
             >
               Question
+              {currentSortKey === "question" && (
+                <span className="ml-2 text-muted-foreground">
+                  {currentSortDir === "asc" ? "↑" : "↓"}
+                </span>
+              )}
             </TableHead>
             <TableHead
-              className="cursor-pointer"
+              className="cursor-pointer hover:text-primary transition-colors"
               onClick={() => onSort("difficulty")}
             >
               Difficulty
+              {currentSortKey === "difficulty" && (
+                <span className="ml-2 text-muted-foreground">
+                  {currentSortDir === "asc" ? "↑" : "↓"}
+                </span>
+              )}
             </TableHead>
             <TableHead>
               <span className="hidden sm:inline">Code Link</span>
@@ -62,7 +77,11 @@ export function QuestionsTable({
               return (
                 <TableRow
                   key={questionId}
-                  className={isCompleted ? "bg-green-950/20 h-12" : "h-12"}
+                  className={`transition-colors ${
+                    isCompleted 
+                      ? "dark:bg-green-950/20 bg-green-50 dark:hover:bg-green-950/30 hover:bg-green-100" 
+                      : "hover:bg-muted/50"
+                  } h-12`}
                 >
                   <TableCell>
                     <Checkbox
@@ -82,10 +101,10 @@ export function QuestionsTable({
                       variant="outline"
                       className={
                         question.difficulty === "Easy"
-                          ? "bg-green-950/20 text-green-500 border-green-500"
+                          ? "dark:bg-green-950/20 bg-green-50 dark:text-green-400 text-green-700 dark:border-green-500 border-green-700"
                           : question.difficulty === "Medium"
-                          ? "bg-yellow-950/20 text-yellow-500 border-yellow-500"
-                          : "bg-red-950/20 text-red-500 border-red-500"
+                          ? "dark:bg-yellow-950/20 bg-yellow-50 dark:text-yellow-400 text-yellow-700 dark:border-yellow-500 border-yellow-700"
+                          : "dark:bg-red-950/20 bg-red-50 dark:text-red-400 text-red-700 dark:border-red-500 border-red-700"
                       }
                     >
                       {question.difficulty}
@@ -97,7 +116,7 @@ export function QuestionsTable({
                         href={question.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-blue-500 hover:underline"
+                        className="text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300 hover:underline transition-colors"
                       >
                         <span className="hidden sm:inline">View Problem</span>
                         <span className="sm:hidden">View</span>
@@ -111,7 +130,7 @@ export function QuestionsTable({
             })
           ) : (
             <TableRow>
-              <TableCell colSpan={5} className="text-center py-8">
+              <TableCell colSpan={5} className="text-center py-8 text-muted-foreground">
                 No questions found matching your criteria
               </TableCell>
             </TableRow>
