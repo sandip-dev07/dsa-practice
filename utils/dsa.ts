@@ -1,4 +1,4 @@
-import type { DSAQuestion, TopicCount, DifficultyCount, CompletionCount, TopicCompletion, DifficultyCompletion } from "@/types/question-types";
+import type { DSAQuestion, TopicCount, DifficultyCount, CompletionCount, TopicCompletion, DifficultyCompletion, CompletedFilter } from "@/types/question-types";
 
 export const createQuestionId = (question: DSAQuestion): string => {
   return question.question.toLowerCase().replace(/[^a-z0-9]/g, "_");
@@ -110,7 +110,7 @@ export const filterQuestions = (
     search: string;
     topic: string;
     difficulty: string;
-    showCompleted: string;
+    showCompleted: CompletedFilter;
     completedQuestions: Record<string, boolean>;
     sortKey: SortKey | "";
     sortDir: SortDirection;

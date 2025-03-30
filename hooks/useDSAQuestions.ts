@@ -201,7 +201,7 @@ export function useDSAQuestions() {
 
   // Handle completed filter change
   const handleCompletedChange = (value: CompletedFilter): void => {
-    router.push(`?${createQueryString({ showCompleted: value, page: "1" })}`);
+    router.push(`?${createQueryString({ completed: value, page: "1" })}`);
   };
 
   // Handle pagination

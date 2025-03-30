@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { CheckCircle2, ListChecks, BarChart } from "lucide-react";
+import { CheckCircle2, ListChecks, BarChart, TrendingUp } from "lucide-react";
 import { QuestionsTable } from "@/components/dsa/QuestionsTable";
 import { Filters } from "@/components/dsa/Filters";
 import { Pagination } from "@/components/dsa/Pagination";
@@ -59,7 +59,7 @@ export default function DSAQuestionsPage(): JSX.Element {
         onValueChange={handleTabChange}
         className="mb-4 sm:mb-6"
       >
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-4">
+        <div className="flex flex-row justify-between items-start sm:items-center mb-4 gap-4">
           <TabsList className="grid w-full sm:w-fit grid-cols-2">
             <TabsTrigger value="questions" className="flex items-center gap-2">
               <ListChecks className="h-4 w-4" />
@@ -67,16 +67,15 @@ export default function DSAQuestionsPage(): JSX.Element {
               <span className="sm:hidden">Q</span>
             </TabsTrigger>
             <TabsTrigger value="progress" className="flex items-center gap-2">
-              <BarChart className="h-4 w-4" />
+              <TrendingUp className="h-4 w-4" />
               <span className="hidden sm:inline">Progress</span>
               <span className="sm:hidden">P</span>
             </TabsTrigger>
           </TabsList>
 
           {!isLoading && (
-            <div className="bg-card p-2 rounded-lg border shadow-sm w-full sm:w-auto">
+            <div className="bg-card p-2 rounded-lg border shadow-sm w-full sm:w-fit">
               <div className="flex flex-row text-sm justify-between items-center gap-2 sm:gap-4">
-                <h2 className="font-medium">Completed</h2>
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="h-4 w-4 text-green-500" />
                   <span>
