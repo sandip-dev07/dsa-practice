@@ -17,6 +17,41 @@ import { createQuestionId } from "@/utils/dsa";
 import { Notebook, Plus } from "lucide-react";
 import { useState } from "react";
 import { NotesDialog } from "./NotesDialog";
+import Image from "next/image";
+
+// Helper function to extract domain from URL
+const getDomain = (url: string) => {
+  try {
+    const domain = new URL(url).hostname;
+    return domain;
+  } catch {
+    return "";
+  }
+};
+
+// Platform icon component
+const PlatformIcon = ({ url }: { url: string }) => {
+  const domain = getDomain(url);
+  if (!domain) return null;
+
+  return (
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="hover:opacity-80 transition-opacity"
+      title={`View on ${domain}`}
+    >
+      <Image
+        src={`https://www.google.com/s2/favicons?domain=${domain}&sz=64`}
+        alt={`${domain} icon`}
+        width={18}
+        height={18}
+        className="w-5 h-5"
+      />
+    </a>
+  );
+};
 
 interface QuestionsTableProps {
   questions: DSAQuestion[];
@@ -90,8 +125,7 @@ export function QuestionsTable({
                 )}
               </TableHead>
               <TableHead>
-                <span className="hidden sm:inline">Code Link</span>
-                <span className="sm:hidden">Link</span>
+                <span className="">Link</span>
               </TableHead>
               <TableHead className="w-[100px]">Notes</TableHead>
             </TableRow>
@@ -143,15 +177,7 @@ export function QuestionsTable({
                     </TableCell>
                     <TableCell>
                       {question.link !== "Link not provided" ? (
-                        <a
-                          href={question.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300 hover:underline transition-colors"
-                        >
-                          <span className="hidden sm:inline">View Problem</span>
-                          <span className="sm:hidden">View</span>
-                        </a>
+                        <PlatformIcon url={question.link} />
                       ) : (
                         <span className="text-muted-foreground">N/A</span>
                       )}

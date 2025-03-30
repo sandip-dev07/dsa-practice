@@ -871,7 +871,7 @@ export const dsaQuestions: DSAQuestion[] = [
     topic: "Linked List",
     question: "Sort a linked list of 0s, 1s and 2s",
     difficulty: "Medium",
-    link: "https://leetcode.com/problems/sort-list/description/",
+    link: "https://naukri.com/code360/problems/sort-linked-list-of-0s-1s-2s_1071937",
   },
   {
     topic: "Linked List",
