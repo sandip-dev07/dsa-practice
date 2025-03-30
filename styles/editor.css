@@ -7,20 +7,27 @@
 
 /* Code block styles */
 .ProseMirror pre {
-  background: #1e1e1e;
-  color: #d4d4d4;
+  background: #f3f4f6 !important;
+  color: #383838;
   font-family: 'Fira Code', monospace;
   padding: 0.75rem 1rem;
   border-radius: 0.5rem;
   overflow-x: auto;
   position: relative;
   margin: 1rem 0;
+  border: 1px solid #e5e7eb;
+}
+
+.dark .ProseMirror pre {
+  background: #1e1e1e !important;
+  color: #d4d4d4;
+  border-color: #2e2e2e;
 }
 
 .ProseMirror pre code {
   color: inherit;
   padding: 0;
-  background: none;
+  background: none !important;
   font-size: 0.875rem;
   font-family: inherit;
   display: block;
@@ -28,100 +35,184 @@
   overflow-x: auto;
 }
 
-/* Syntax highlighting */
-.ProseMirror pre .hljs-keyword {
+/* Override highlight.js styles */
+.hljs {
+  display: block;
+  background: transparent !important;
+  padding: 0 !important;
+}
+
+.hljs * {
+  background: transparent !important;
+}
+
+/* Light theme syntax colors */
+.hljs-keyword,
+.hljs-literal,
+.hljs-symbol,
+.hljs-name {
+  color: #0550ae;
+}
+
+.hljs-link {
+  color: #0550ae;
+  text-decoration: underline;
+}
+
+.hljs-built_in,
+.hljs-type {
+  color: #116329;
+}
+
+.hljs-number,
+.hljs-class {
+  color: #5a1e02;
+}
+
+.hljs-string,
+.hljs-meta .hljs-string {
+  color: #0a3069;
+}
+
+.hljs-regexp,
+.hljs-template-tag {
+  color: #833c0b;
+}
+
+.hljs-subst,
+.hljs-function,
+.hljs-title,
+.hljs-params,
+.hljs-formula {
+  color: #953800;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #6e7781;
+  font-style: italic;
+}
+
+.hljs-doctag {
+  color: #487044;
+}
+
+.hljs-meta,
+.hljs-meta .hljs-keyword,
+.hljs-tag {
+  color: #5c6773;
+}
+
+.hljs-variable,
+.hljs-template-variable {
+  color: #7c3aed;
+}
+
+.hljs-attr,
+.hljs-attribute {
+  color: #24292f;
+}
+
+/* Dark theme syntax colors */
+.dark .hljs-keyword,
+.dark .hljs-literal,
+.dark .hljs-symbol,
+.dark .hljs-name {
   color: #569cd6;
 }
 
-.ProseMirror pre .hljs-string {
-  color: #ce9178;
+.dark .hljs-link {
+  color: #569cd6;
+  text-decoration: underline;
 }
 
-.ProseMirror pre .hljs-comment {
-  color: #6a9955;
-}
-
-.ProseMirror pre .hljs-function {
-  color: #dcdcaa;
-}
-
-.ProseMirror pre .hljs-number {
-  color: #b5cea8;
-}
-
-.ProseMirror pre .hljs-operator {
-  color: #d4d4d4;
-}
-
-.ProseMirror pre .hljs-punctuation {
-  color: #d4d4d4;
-}
-
-.ProseMirror pre .hljs-variable {
-  color: #9cdcfe;
-}
-
-.ProseMirror pre .hljs-class {
+.dark .hljs-built_in,
+.dark .hljs-type {
   color: #4ec9b0;
 }
 
-.ProseMirror pre .hljs-params {
+.dark .hljs-number,
+.dark .hljs-class {
+  color: #b8d7a3;
+}
+
+.dark .hljs-string,
+.dark .hljs-meta .hljs-string {
+  color: #ce9178;
+}
+
+.dark .hljs-regexp,
+.dark .hljs-template-tag {
+  color: #d16969;
+}
+
+.dark .hljs-subst,
+.dark .hljs-function,
+.dark .hljs-title,
+.dark .hljs-params,
+.dark .hljs-formula {
+  color: #dcdcaa;
+}
+
+.dark .hljs-comment,
+.dark .hljs-quote {
+  color: #6a9955;
+  font-style: italic;
+}
+
+.dark .hljs-doctag {
+  color: #608b4e;
+}
+
+.dark .hljs-meta,
+.dark .hljs-meta .hljs-keyword,
+.dark .hljs-tag {
+  color: #9b9b9b;
+}
+
+.dark .hljs-variable,
+.dark .hljs-template-variable {
+  color: #bd63c5;
+}
+
+.dark .hljs-attr,
+.dark .hljs-attribute {
   color: #9cdcfe;
 }
 
-/* Language indicator */
-.ProseMirror pre::before {
-  content: attr(data-language);
-  position: absolute;
-  top: 0.5rem;
-  right: 1rem;
-  font-size: 0.75rem;
-  color: #6a9955;
-  text-transform: uppercase;
-  font-family: system-ui, -apple-system, sans-serif;
+/* Remove all line backgrounds */
+.hljs .hljs-line {
+  background: transparent !important;
 }
 
-/* Code block toolbar */
-.ProseMirror pre .code-block-toolbar {
-  position: absolute;
-  top: 0.5rem;
-  right: 1rem;
-  display: flex;
-  gap: 0.5rem;
-  opacity: 0;
-  transition: opacity 0.2s;
+/* Scrollbar styling */
+.ProseMirror pre::-webkit-scrollbar {
+  height: 6px;
 }
 
-.ProseMirror pre:hover .code-block-toolbar {
-  opacity: 1;
+.ProseMirror pre::-webkit-scrollbar-track {
+  background: #e5e7eb;
 }
 
-.ProseMirror pre .code-block-toolbar button {
-  background: rgba(255, 255, 255, 0.1);
-  border: none;
-  color: #d4d4d4;
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
-  cursor: pointer;
-  font-size: 0.75rem;
-  transition: background 0.2s;
+.dark .ProseMirror pre::-webkit-scrollbar-track {
+  background: #2e2e2e;
 }
 
-.ProseMirror pre .code-block-toolbar button:hover {
-  background: rgba(255, 255, 255, 0.2);
+.ProseMirror pre::-webkit-scrollbar-thumb {
+  background: #9ca3af;
+  border-radius: 3px;
 }
 
-/* Dark mode adjustments */
-.dark .ProseMirror pre {
-  background: #1a1a1a;
+.ProseMirror pre::-webkit-scrollbar-thumb:hover {
+  background: #6b7280;
 }
 
-.dark .ProseMirror pre .code-block-toolbar button {
-  background: rgba(255, 255, 255, 0.05);
+.dark .ProseMirror pre::-webkit-scrollbar-thumb {
+  background: #4b5563;
 }
 
-.dark .ProseMirror pre .code-block-toolbar button:hover {
-  background: rgba(255, 255, 255, 0.1);
+.dark .ProseMirror pre::-webkit-scrollbar-thumb:hover {
+  background: #6b7280;
 }
 
 /* Responsive adjustments */
@@ -156,42 +247,4 @@
 
 .ProseMirror::-webkit-scrollbar-thumb:hover {
   background: #666;
-}
-
-.dark .ProseMirror::-webkit-scrollbar-thumb {
-  background: #444;
-}
-
-.dark .ProseMirror::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
-
-/* Code block scrollbar */
-.ProseMirror pre::-webkit-scrollbar {
-  height: 6px;
-}
-
-.ProseMirror pre::-webkit-scrollbar-track {
-  background: #2d2d2d;
-}
-
-.ProseMirror pre::-webkit-scrollbar-thumb {
-  background: #666;
-  border-radius: 3px;
-}
-
-.ProseMirror pre::-webkit-scrollbar-thumb:hover {
-  background: #888;
-}
-
-.dark .ProseMirror pre::-webkit-scrollbar-track {
-  background: #1a1a1a;
-}
-
-.dark .ProseMirror pre::-webkit-scrollbar-thumb {
-  background: #444;
-}
-
-.dark .ProseMirror pre::-webkit-scrollbar-thumb:hover {
-  background: #555;
 } 
