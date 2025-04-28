@@ -593,9 +593,21 @@ export const dsaQuestions: DSAQuestion[] = [
   },
   {
     topic: "Stack",
+    question: "Sort a Stack",
+    difficulty: "Medium",
+    link: "https://www.geeksforgeeks.org/sort-a-stack-using-recursion/",
+  },
+  {
+    topic: "Stack",
     question: "Implement two Stacks in an Array",
     difficulty: "Medium",
     link: "https://www.geeksforgeeks.org/implement-two-stacks-in-an-array/",
+  },
+  {
+    topic: "Stack",
+    question: "Asteroid Collision",
+    difficulty: "Medium",
+    link: "https://leetcode.com/problems/asteroid-collision/description/",
   },
   {
     topic: "Stack",
@@ -611,6 +623,12 @@ export const dsaQuestions: DSAQuestion[] = [
   },
   {
     topic: "Stack",
+    question: "Next Greater Element II",
+    difficulty: "Medium",
+    link: "https://leetcode.com/problems/next-greater-element-ii/description/",
+  },
+  {
+    topic: "Stack",
     question: "Get Min from Stack",
     difficulty: "Medium",
     link: "https://leetcode.com/problems/min-stack/description/",
@@ -623,9 +641,27 @@ export const dsaQuestions: DSAQuestion[] = [
   },
   {
     topic: "Stack",
+    question: "Remove K Digits",
+    difficulty: "Medium",
+    link: "https://leetcode.com/problems/remove-k-digits/description/",
+  },
+  {
+    topic: "Stack",
+    question: "Minimum Add to Make Parentheses Valid",
+    difficulty: "Medium",
+    link: "https://leetcode.com/problems/minimum-add-to-make-parentheses-valid/description/",
+  },
+  {
+    topic: "Stack",
     question: "Longest Valid Parentheses Substring",
     difficulty: "Medium",
     link: "https://leetcode.com/problems/longest-valid-parentheses/description/",
+  },
+  {
+    topic: "Stack",
+    question: "Daily Temperatures",
+    difficulty: "Medium",
+    link: "https://leetcode.com/problems/daily-temperatures/description/",
   },
   {
     topic: "Stack",
@@ -641,9 +677,9 @@ export const dsaQuestions: DSAQuestion[] = [
   },
   {
     topic: "Stack",
-    question: "Implement K Stacks in an Array",
+    question: "Implement N Stacks in an Array",
     difficulty: "Hard",
-    link: "https://www.geeksforgeeks.org/efficiently-implement-k-stacks-single-array/",
+    link: "https://www.naukri.com/code360/problems/n-stacks-in-an-array_1164271",
   },
 
   // Queue
@@ -675,7 +711,8 @@ export const dsaQuestions: DSAQuestion[] = [
   },
   {
     topic: "Deque",
-    question: "Longest Subarray with Absolute Difference Less than or Equal to K",
+    question:
+      "Longest Subarray with Absolute Difference Less than or Equal to K",
     difficulty: "Medium",
     link: "https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/description/",
   },
