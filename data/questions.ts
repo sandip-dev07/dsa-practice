@@ -665,6 +665,12 @@ export const dsaQuestions: DSAQuestion[] = [
   },
   {
     topic: "Stack",
+    question: "Simplify Path",
+    difficulty: "Medium",
+    link: "https://leetcode.com/problems/simplify-path/description/",
+  },
+  {
+    topic: "Stack",
     question: "Largest Rectangular Area in a Histogram",
     difficulty: "Hard",
     link: "https://leetcode.com/problems/largest-rectangle-in-histogram/description/",
