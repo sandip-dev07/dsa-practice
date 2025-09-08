@@ -3,17 +3,21 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { memo, useMemo } from "react";
 import type { TopicCompletion, DifficultyCompletion, CompletionCount } from "@/types/question-types";
+import { StrikeGridData } from "@/hooks/use-progress";
+import StrikeGrid from "./StrikeGrid";
 
 interface ProgressDashboardProps {
   completedCounts: CompletionCount;
   difficultyCompletion: DifficultyCompletion;
   topicCompletion: TopicCompletion;
+  strikeGridData: StrikeGridData;
 }
 
 const ProgressDashboardComponent: React.FC<ProgressDashboardProps> = ({
   completedCounts,
   difficultyCompletion,
   topicCompletion,
+  strikeGridData,
 }) => {
   // Memoized calculations to prevent unnecessary re-computations
   const remainingCount = useMemo(() =>
@@ -70,7 +74,7 @@ const ProgressDashboardComponent: React.FC<ProgressDashboardProps> = ({
             <span className="font-semibold text-sm sm:text-base truncate pr-2 text-gray-800 dark:text-gray-200">
               {topicName}
             </span>
-            <span className={`text-sm font-bold ${colorScheme.text}`}>
+            <span className={`text-sm font-semibold ${colorScheme.text}`}>
               {data.percentage}%
             </span>
           </div>
@@ -89,6 +93,9 @@ const ProgressDashboardComponent: React.FC<ProgressDashboardProps> = ({
 
   return (
     <div className="space-y-4 sm:space-y-6">
+      {/* Strike Grid - GitHub Style Contribution Graph */}
+      <StrikeGrid strikeGridData={strikeGridData} />
+
       <Card>
         <CardHeader className="pb-2">
           <CardTitle>Completion Summary</CardTitle>
@@ -100,7 +107,7 @@ const ProgressDashboardComponent: React.FC<ProgressDashboardProps> = ({
               <div className="text-xs sm:text-sm text-emerald-700 dark:text-emerald-300 font-medium">
                 Total Completed
               </div>
-              <div className="text-xl sm:text-2xl font-bold text-emerald-800 dark:text-emerald-200">
+              <div className="text-xl sm:text-2xl font-semibold text-emerald-800 dark:text-emerald-200">
                 {completedCounts.completed}
               </div>
             </div>
@@ -108,7 +115,7 @@ const ProgressDashboardComponent: React.FC<ProgressDashboardProps> = ({
               <div className="text-xs sm:text-sm text-amber-700 dark:text-amber-300 font-medium">
                 Remaining
               </div>
-              <div className="text-xl sm:text-2xl font-bold text-amber-800 dark:text-amber-200">
+              <div className="text-xl sm:text-2xl font-semibold text-amber-800 dark:text-amber-200">
                 {remainingCount}
               </div>
             </div>
@@ -116,7 +123,7 @@ const ProgressDashboardComponent: React.FC<ProgressDashboardProps> = ({
               <div className="text-xs sm:text-sm text-blue-700 dark:text-blue-300 font-medium">
                 Total Questions
               </div>
-              <div className="text-xl sm:text-2xl font-bold text-blue-800 dark:text-blue-200">
+              <div className="text-xl sm:text-2xl font-semibold text-blue-800 dark:text-blue-200">
                 {completedCounts.total}
               </div>
             </div>
@@ -124,7 +131,7 @@ const ProgressDashboardComponent: React.FC<ProgressDashboardProps> = ({
               <div className="text-xs sm:text-sm text-violet-700 dark:text-violet-300 font-medium">
                 Completion Rate
               </div>
-              <div className="text-xl sm:text-2xl font-bold text-violet-800 dark:text-violet-200">
+              <div className="text-xl sm:text-2xl font-semibold text-violet-800 dark:text-violet-200">
                 {completedCounts.percentage}%
               </div>
             </div>
@@ -153,7 +160,7 @@ const ProgressDashboardComponent: React.FC<ProgressDashboardProps> = ({
                     {difficultyCompletion.Easy.total} completed
                   </span>
                 </div>
-                <span className="text-sm font-bold text-emerald-700 dark:text-emerald-300">
+                <span className="text-sm font-semibold text-emerald-700 dark:text-emerald-300">
                   {difficultyCompletion.Easy.percentage}%
                 </span>
               </div>
@@ -177,7 +184,7 @@ const ProgressDashboardComponent: React.FC<ProgressDashboardProps> = ({
                     {difficultyCompletion.Medium.total} completed
                   </span>
                 </div>
-                <span className="text-sm font-bold text-amber-700 dark:text-amber-300">
+                <span className="text-sm font-semibold text-amber-700 dark:text-amber-300">
                   {difficultyCompletion.Medium.percentage}%
                 </span>
               </div>
@@ -201,7 +208,7 @@ const ProgressDashboardComponent: React.FC<ProgressDashboardProps> = ({
                     {difficultyCompletion.Hard.total} completed
                   </span>
                 </div>
-                <span className="text-sm font-bold text-red-700 dark:text-red-300">
+                <span className="text-sm font-semibold text-red-700 dark:text-red-300">
                   {difficultyCompletion.Hard.percentage}%
                 </span>
               </div>

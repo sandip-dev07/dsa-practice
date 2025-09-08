@@ -10,6 +10,7 @@ import { ProgressDashboard } from "@/components/dsa/ProgressDashboard";
 import { TableSkeleton } from "@/components/dsa/TableSkeleton";
 import { ProgressSkeleton } from "@/components/dsa/ProgressSkeleton";
 import { useDSAQuestions } from "@/hooks/useDSAQuestions";
+import { useProgress } from "@/hooks/use-progress";
 
 // Memoized progress display component
 const ProgressDisplay = memo(({ completedCounts }: { completedCounts: { completed: number; total: number } }) => {
@@ -141,17 +142,22 @@ const ProgressTabContent = memo(({
   completedCounts: any;
   difficultyCompletion: any;
   topicCompletion: any;
-}) => (
-  isLoading ? (
-    <ProgressSkeleton />
-  ) : (
-    <ProgressDashboard
-      completedCounts={completedCounts}
-      difficultyCompletion={difficultyCompletion}
-      topicCompletion={topicCompletion}
-    />
-  )
-));
+}) => {
+  const { strikeGridData, loading: progressLoading } = useProgress();
+
+  return (
+    isLoading || progressLoading ? (
+      <ProgressSkeleton />
+    ) : (
+      <ProgressDashboard
+        completedCounts={completedCounts}
+        difficultyCompletion={difficultyCompletion}
+        topicCompletion={topicCompletion}
+        strikeGridData={strikeGridData}
+      />
+    )
+  );
+});
 
 ProgressTabContent.displayName = "ProgressTabContent";
 

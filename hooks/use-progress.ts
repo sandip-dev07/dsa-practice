@@ -1,11 +1,24 @@
 import { useSession } from "next-auth/react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 
 interface Progress {
   id: string;
   question: string;
   topic: string;
   solved: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface DailyCompletion {
+  date: string;
+  count: number;
+}
+
+export interface StrikeGridData {
+  contributions: DailyCompletion[];
+  maxCount: number;
+  totalDays: number;
 }
 
 export function useProgress() {
@@ -79,11 +92,51 @@ export function useProgress() {
     return progress.some((p) => p.question === question && p.solved);
   };
 
+  // Calculate daily completion data for strike grid
+  const strikeGridData = useMemo(() => {
+    const completedProgress = progress.filter(p => p.solved);
+    const dailyMap = new Map<string, number>();
+
+    // Get date range (last 365 days)
+    const endDate = new Date();
+    const startDate = new Date();
+    startDate.setDate(startDate.getDate() - 365);
+
+    // Initialize all days with 0
+    for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
+      const dateKey = d.toISOString().split('T')[0];
+      dailyMap.set(dateKey, 0);
+    }
+
+    // Count solved problems per day
+    completedProgress.forEach(item => {
+      const date = new Date(item.updatedAt);
+      const dateKey = date.toISOString().split('T')[0];
+      if (dailyMap.has(dateKey)) {
+        dailyMap.set(dateKey, dailyMap.get(dateKey)! + 1);
+      }
+    });
+
+    // Convert to array and sort
+    const contributions = Array.from(dailyMap.entries())
+      .map(([date, count]) => ({ date, count }))
+      .sort((a, b) => a.date.localeCompare(b.date));
+
+    const maxCount = Math.max(...contributions.map(c => c.count));
+
+    return {
+      contributions,
+      maxCount: maxCount || 1, // Avoid division by zero
+      totalDays: contributions.length,
+    };
+  }, [progress]);
+
   return {
     progress,
     loading,
     error,
     updateProgress,
     isQuestionSolved,
+    strikeGridData,
   };
 } 

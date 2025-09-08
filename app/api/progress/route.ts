@@ -93,6 +93,11 @@ export async function GET(req: Request) {
       select: {
         question: true,
         solved: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+      orderBy: {
+        updatedAt: 'desc',
       },
     });
 
