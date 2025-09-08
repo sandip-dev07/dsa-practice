@@ -63,8 +63,16 @@ async function validateUser(request: Request) {
 }
 
 // Helper function to sanitize input
-function sanitizeInput(input: string): string {
+function sanitizeIdentifier(input: string): string {
+  // For identifiers like question/topic, strip angle brackets to avoid HTML injection
   return input.trim().replace(/[<>]/g, '');
+}
+
+// Preserve formatting/HTML from the rich text editor, but remove obvious script tags
+function sanitizeRichText(input: string): string {
+  const trimmed = input.trim();
+  // Remove <script> tags and their contents (basic guard)
+  return trimmed.replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '');
 }
 
 export async function GET(request: Request) {
@@ -82,8 +90,8 @@ export async function GET(request: Request) {
       return new NextResponse(validationResult.error.errors[0].message, { status: 400 });
     }
 
-    const sanitizedQuestion = sanitizeInput(question!);
-    const sanitizedTopic = sanitizeInput(topic!);
+    const sanitizedQuestion = sanitizeIdentifier(question!);
+    const sanitizedTopic = sanitizeIdentifier(topic!);
 
     console.log("Fetching notes for:", {
       userId: user.id,
@@ -134,9 +142,9 @@ export async function POST(request: Request) {
     const { question, topic, content } = validationResult.data;
 
     // Sanitize input
-    const sanitizedQuestion = sanitizeInput(question);
-    const sanitizedTopic = sanitizeInput(topic);
-    const sanitizedContent = sanitizeInput(content);
+    const sanitizedQuestion = sanitizeIdentifier(question);
+    const sanitizedTopic = sanitizeIdentifier(topic);
+    const sanitizedContent = sanitizeRichText(content);
 
     console.log("Saving notes for:", {
       userId: user.id,
