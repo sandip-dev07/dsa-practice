@@ -7,6 +7,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { memo, useMemo, useCallback } from "react";
 
 interface PaginationProps {
   currentPage: number;
@@ -16,14 +17,28 @@ interface PaginationProps {
   itemsPerPage: number;
 }
 
-export function Pagination({
+const PaginationComponent: React.FC<PaginationProps> = ({
   currentPage,
   totalPages,
   onPageChange,
   totalItems,
   itemsPerPage,
-}: PaginationProps) {
-  const paginationItems = (): JSX.Element[] => {
+}) => {
+  // Memoized event handlers to prevent recreation on every render
+  const handlePrevious = useCallback(() => {
+    onPageChange(Math.max(1, currentPage - 1));
+  }, [onPageChange, currentPage]);
+
+  const handleNext = useCallback(() => {
+    onPageChange(Math.min(totalPages, currentPage + 1));
+  }, [onPageChange, totalPages, currentPage]);
+
+  const handlePageClick = useCallback((page: number) => {
+    onPageChange(page);
+  }, [onPageChange]);
+
+  // Memoized pagination items to prevent recalculation
+  const paginationItems = useMemo(() => {
     const items: JSX.Element[] = [];
     const maxVisiblePages = 5;
 
@@ -33,7 +48,12 @@ export function Pagination({
           <PaginationItem key={i}>
             <PaginationLink
               isActive={currentPage === i}
-              onClick={() => onPageChange(i)}
+              onClick={() => handlePageClick(i)}
+              className={`transition-all duration-200 ${
+                currentPage === i
+                  ? "bg-zinc-600 text-white shadow-md"
+                  : "cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg"
+              }`}
             >
               {i}
             </PaginationLink>
@@ -45,7 +65,12 @@ export function Pagination({
         <PaginationItem key={1}>
           <PaginationLink
             isActive={currentPage === 1}
-            onClick={() => onPageChange(1)}
+            onClick={() => handlePageClick(1)}
+            className={`transition-all duration-200 ${
+              currentPage === 1
+                ? "bg-zinc-600 text-white shadow-md"
+                : "cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg"
+            }`}
           >
             1
           </PaginationLink>
@@ -68,7 +93,12 @@ export function Pagination({
           <PaginationItem key={i}>
             <PaginationLink
               isActive={currentPage === i}
-              onClick={() => onPageChange(i)}
+              onClick={() => handlePageClick(i)}
+              className={`transition-all duration-200 ${
+                currentPage === i
+                  ? "bg-zinc-600 text-white shadow-md"
+                  : "cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg"
+              }`}
             >
               {i}
             </PaginationLink>
@@ -88,7 +118,12 @@ export function Pagination({
         <PaginationItem key={totalPages}>
           <PaginationLink
             isActive={currentPage === totalPages}
-            onClick={() => onPageChange(totalPages)}
+            onClick={() => handlePageClick(totalPages)}
+            className={`transition-all duration-200 ${
+              currentPage === totalPages
+                ? "bg-zinc-600 text-white shadow-md"
+                : "cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg"
+            }`}
           >
             {totalPages}
           </PaginationLink>
@@ -97,32 +132,46 @@ export function Pagination({
     }
 
     return items;
-  };
+  }, [totalPages, currentPage, handlePageClick]);
+
+  // Memoized item range display
+  const itemRangeDisplay = useMemo(() => {
+    const startItem = totalItems > 0 ? (currentPage - 1) * itemsPerPage + 1 : 0;
+    const endItem = Math.min(currentPage * itemsPerPage, totalItems);
+
+    return `${startItem} to ${endItem} of ${totalItems}`;
+  }, [currentPage, itemsPerPage, totalItems]);
 
   return (
     <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-      <div className="text-center text-sm text-muted-foreground order-2 sm:order-1">
-        Showing{" "}
-        {totalItems > 0 ? (currentPage - 1) * itemsPerPage + 1 : 0} to{" "}
-        {Math.min(currentPage * itemsPerPage, totalItems)} of {totalItems} questions
+      <div className="text-center text-sm text-slate-600 dark:text-slate-400 font-medium order-2 sm:order-1 bg-slate-50 dark:bg-slate-800/50 px-3 py-2 rounded-lg">
+        Showing {itemRangeDisplay} questions
       </div>
 
       <div className="order-1 sm:order-2 w-full sm:w-auto">
-        <PaginationRoot>
+        <PaginationRoot className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl p-2 shadow-sm">
           <PaginationContent>
             <PaginationItem>
               <PaginationPrevious
-                onClick={() => onPageChange(Math.max(1, currentPage - 1))}
-                className={currentPage === 1 ? "pointer-events-none opacity-50" : ""}
+                onClick={handlePrevious}
+                className={`transition-all duration-200 ${
+                  currentPage === 1
+                    ? "pointer-events-none opacity-50"
+                    : "cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg"
+                }`}
               />
             </PaginationItem>
 
-            {paginationItems()}
+            {paginationItems}
 
             <PaginationItem>
               <PaginationNext
-                onClick={() => onPageChange(Math.min(totalPages, currentPage + 1))}
-                className={currentPage === totalPages ? "pointer-events-none opacity-50" : ""}
+                onClick={handleNext}
+                className={`transition-all duration-200 ${
+                  currentPage === totalPages
+                    ? "pointer-events-none opacity-50"
+                    : "cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg"
+                }`}
               />
             </PaginationItem>
           </PaginationContent>
@@ -130,4 +179,8 @@ export function Pagination({
       </div>
     </div>
   );
-} 
+};
+
+PaginationComponent.displayName = "PaginationComponent";
+
+export const Pagination = memo(PaginationComponent); 

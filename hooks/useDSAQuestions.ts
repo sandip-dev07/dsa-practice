@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { dsaQuestions } from "@/data/questions";
+import { dsaQuestions } from "@/data/striver-set";
 import type {
   DSAQuestion,
   CompletedQuestionsMap,
@@ -27,41 +27,86 @@ import {
 import { toast } from "sonner";
 import { useLoginDialog } from "@/hooks/use-login-dialog";
 
+// Constants
+const QUESTIONS_PER_PAGE = 15;
+const DEFAULT_PAGE = 1;
+
 export function useDSAQuestions() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { data: session, status } = useSession();
   const loginDialog = useLoginDialog();
 
-  // Get URL params
-  const activeTab = searchParams.get("tab") || "questions";
-  const search = searchParams.get("search") || "";
-  const topic = searchParams.get("topic") || "all";
-  const difficulty = searchParams.get("difficulty") || "all";
-  const showCompleted = (searchParams.get("completed") as CompletedFilter) || "all";
-  const sortKey = (searchParams.get("sortKey") as SortKey) || "topic";
-  const sortDir = (searchParams.get("sortDir") as SortDirection) || "asc";
-  const page = parseInt(searchParams.get("page") || "1", 10);
+  // Memoized URL params
+  const urlParams = useMemo(() => ({
+    activeTab: (searchParams.get("tab") as TabValue) || "questions",
+    search: searchParams.get("search") || "",
+    topic: searchParams.get("topic") || "all",
+    difficulty: searchParams.get("difficulty") || "all",
+    showCompleted: (searchParams.get("completed") as CompletedFilter) || "all",
+    sortKey: (searchParams.get("sortKey") as SortKey) || "topic",
+    sortDir: (searchParams.get("sortDir") as SortDirection) || "asc",
+    page: Math.max(1, parseInt(searchParams.get("page") || "1", 10)),
+  }), [searchParams]);
 
   // State
-  const [inputSearch, setInputSearch] = useState(search);
+  const [inputSearch, setInputSearch] = useState(urlParams.search);
   const [completedQuestions, setCompletedQuestions] = useState<CompletedQuestionsMap>({});
   const [notesData, setNotesData] = useState<Record<string, string>>({});
-  const [filteredQuestions, setFilteredQuestions] = useState(dsaQuestions);
   const [isLoading, setIsLoading] = useState(true);
-  const questionsPerPage = 10;
-  const totalPages = Math.ceil(filteredQuestions.length / questionsPerPage);
 
-  // Get unique topics for filter dropdown
-  const topics = Array.from(new Set(dsaQuestions.map((q) => q.topic)));
+  // Memoized topics array (computed once)
+  const topics = useMemo(() =>
+    Array.from(new Set(dsaQuestions.map((q) => q.topic))),
+    []
+  );
 
-  // Load completed questions and notes from API on initial render and when auth status changes
+  // Memoized filtered questions
+  const filteredQuestions = useMemo(() =>
+    filterQuestions(dsaQuestions, {
+      search: urlParams.search,
+      topic: urlParams.topic,
+      difficulty: urlParams.difficulty,
+      showCompleted: urlParams.showCompleted,
+      completedQuestions,
+      sortKey: urlParams.sortKey,
+      sortDir: urlParams.sortDir,
+    }),
+    [urlParams.search, urlParams.topic, urlParams.difficulty, urlParams.showCompleted, urlParams.sortKey, urlParams.sortDir, completedQuestions]
+  );
+
+  // Memoized pagination calculations
+  const pagination = useMemo(() => ({
+    totalPages: Math.ceil(filteredQuestions.length / QUESTIONS_PER_PAGE),
+    currentPage: Math.min(urlParams.page, Math.ceil(filteredQuestions.length / QUESTIONS_PER_PAGE) || 1),
+    questionsPerPage: QUESTIONS_PER_PAGE,
+  }), [filteredQuestions.length, urlParams.page]);
+
+  // Memoized current page questions
+  const currentQuestions = useMemo(() =>
+    filteredQuestions.slice(
+      (pagination.currentPage - 1) * pagination.questionsPerPage,
+      pagination.currentPage * pagination.questionsPerPage
+    ),
+    [filteredQuestions, pagination.currentPage, pagination.questionsPerPage]
+  );
+
+  // Optimized data fetching effect
   useEffect(() => {
+    let isMounted = true;
+
     const fetchProgress = async () => {
       if (status === "authenticated") {
         try {
-          // Fetch completed questions
-          const progressResponse = await fetch("/api/progress");
+          // Parallel API calls for better performance
+          const [progressResponse, notesResponse] = await Promise.all([
+            fetch("/api/progress"),
+            fetch("/api/notes")
+          ]);
+
+          if (!isMounted) return;
+
+          // Handle progress data
           if (progressResponse.ok) {
             const progressData = await progressResponse.json();
             const progressMap: CompletedQuestionsMap = {};
@@ -73,27 +118,35 @@ export function useDSAQuestions() {
             setCompletedQuestions(progressMap);
           }
 
-          // Fetch notes
-          const notesResponse = await fetch("/api/notes");
+          // Handle notes data
           if (notesResponse.ok) {
             const notesData = await notesResponse.json();
             setNotesData(notesData);
           }
         } catch (error) {
-          toast.error("Failed to load data");
+          if (isMounted) {
+            toast.error("Failed to load data");
+          }
         }
       } else {
         setCompletedQuestions({});
         setNotesData({});
       }
-      setIsLoading(false);
+
+      if (isMounted) {
+        setIsLoading(false);
+      }
     };
 
     fetchProgress();
+
+    return () => {
+      isMounted = false;
+    };
   }, [status]);
 
-  // Toggle completed state for a question
-  const toggleCompleted = async (questionId: string): Promise<void> => {
+  // Memoized toggle completed function
+  const toggleCompleted = useCallback(async (questionId: string): Promise<void> => {
     if (status !== "authenticated") {
       loginDialog.onOpen();
       return;
@@ -155,10 +208,10 @@ export function useDSAQuestions() {
     } catch (error) {
       toast.error("Failed to update progress");
     }
-  };
+  }, [status, completedQuestions, loginDialog]);
 
-  // Create a new URLSearchParams instance
-  const createQueryString = (params: Record<string, string>): string => {
+  // Memoized query string creator
+  const createQueryString = useCallback((params: Record<string, string>): string => {
     const newSearchParams = new URLSearchParams(searchParams.toString());
 
     // Update or delete parameters
@@ -171,92 +224,56 @@ export function useDSAQuestions() {
     });
 
     return newSearchParams.toString();
-  };
+  }, [searchParams]);
 
-  // Handle tab change
-  const handleTabChange = (value: string): void => {
+  // Memoized event handlers
+  const handleTabChange = useCallback((value: string): void => {
     router.push(`?${createQueryString({ tab: value })}`);
-  };
+  }, [router, createQueryString]);
 
-  // Handle search input change with debounce
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>): void => {
     setInputSearch(e.target.value);
-  };
+  }, []);
 
-  // Update URL when search input is submitted
-  const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+  const handleSearchSubmit = useCallback((e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     router.push(`?${createQueryString({ search: inputSearch, page: "1" })}`);
-  };
+  }, [router, createQueryString, inputSearch]);
 
-  // Handle topic filter change
-  const handleTopicChange = (value: string): void => {
+  const handleTopicChange = useCallback((value: string): void => {
     router.push(`?${createQueryString({ topic: value, page: "1" })}`);
-  };
+  }, [router, createQueryString]);
 
-  // Handle difficulty filter change
-  const handleDifficultyChange = (value: string): void => {
+  const handleDifficultyChange = useCallback((value: string): void => {
     router.push(`?${createQueryString({ difficulty: value, page: "1" })}`);
-  };
+  }, [router, createQueryString]);
 
-  // Handle completed filter change
-  const handleCompletedChange = (value: CompletedFilter): void => {
+  const handleCompletedChange = useCallback((value: CompletedFilter): void => {
     router.push(`?${createQueryString({ completed: value, page: "1" })}`);
-  };
+  }, [router, createQueryString]);
 
-  // Handle pagination
-  const handlePageChange = (newPage: number): void => {
+  const handlePageChange = useCallback((newPage: number): void => {
     router.push(`?${createQueryString({ page: newPage.toString() })}`);
-  };
+  }, [router, createQueryString]);
 
-  // Handle sorting
-  const handleSort = (key: SortKey): void => {
-    let direction: SortDirection = "asc";
-    if (sortKey === key && sortDir === "asc") {
-      direction = "desc";
-    }
+  const handleSort = useCallback((key: SortKey): void => {
+    const direction: SortDirection = (urlParams.sortKey === key && urlParams.sortDir === "asc") ? "desc" : "asc";
     router.push(`?${createQueryString({ sortKey: key, sortDir: direction })}`);
-  };
-
-  // Apply filters and search
-  useEffect(() => {
-    const filtered = filterQuestions(dsaQuestions, {
-      search,
-      topic,
-      difficulty,
-      showCompleted,
-      completedQuestions,
-      sortKey,
-      sortDir,
-    });
-    setFilteredQuestions(filtered);
-  }, [search, topic, difficulty, sortKey, sortDir, showCompleted, completedQuestions]);
+  }, [router, createQueryString, urlParams.sortKey, urlParams.sortDir]);
 
   // Update search input when URL param changes
   useEffect(() => {
-    setInputSearch(search);
-  }, [search]);
+    setInputSearch(urlParams.search);
+  }, [urlParams.search]);
 
-  // Update current page when URL param changes
-  useEffect(() => {
-    const newPage = parseInt(searchParams.get("page") || "1", 10);
-    if (newPage !== page) {
-      router.push(`?${createQueryString({ page: newPage.toString() })}`);
-    }
-  }, [searchParams]);
-
-  // Get current page questions
-  const currentQuestions = filteredQuestions.slice(
-    (page - 1) * questionsPerPage,
-    page * questionsPerPage
-  );
-
-  // Calculate statistics
-  const topicCounts = calculateTopicCounts(dsaQuestions);
-  const difficultyCounts = calculateDifficultyCounts(dsaQuestions);
-  const completedCounts = calculateCompletedCounts(completedQuestions, dsaQuestions.length);
-  const topicCompletion = calculateTopicCompletion(dsaQuestions, completedQuestions, topics);
-  const difficultyCompletion = calculateDifficultyCompletion(dsaQuestions, completedQuestions);
+  // Memoized statistics calculations
+  const statistics = useMemo(() => ({
+    topicCounts: calculateTopicCounts(dsaQuestions),
+    difficultyCounts: calculateDifficultyCounts(dsaQuestions),
+    completedCounts: calculateCompletedCounts(completedQuestions, dsaQuestions.length),
+    topicCompletion: calculateTopicCompletion(dsaQuestions, completedQuestions, topics),
+    difficultyCompletion: calculateDifficultyCompletion(dsaQuestions, completedQuestions),
+  }), [completedQuestions, topics]);
 
   return {
     currentQuestions,
@@ -264,22 +281,22 @@ export function useDSAQuestions() {
     completedQuestions,
     notesData,
     isLoading,
-    currentPage: page,
-    totalPages,
-    questionsPerPage,
+    currentPage: pagination.currentPage,
+    totalPages: pagination.totalPages,
+    questionsPerPage: pagination.questionsPerPage,
     topics,
-    topicCounts,
-    difficultyCounts,
-    completedCounts,
-    topicCompletion,
-    difficultyCompletion,
-    activeTab,
-    search,
-    topic,
-    difficulty,
-    showCompleted,
-    sortKey,
-    sortDir,
+    topicCounts: statistics.topicCounts,
+    difficultyCounts: statistics.difficultyCounts,
+    completedCounts: statistics.completedCounts,
+    topicCompletion: statistics.topicCompletion,
+    difficultyCompletion: statistics.difficultyCompletion,
+    activeTab: urlParams.activeTab,
+    search: urlParams.search,
+    topic: urlParams.topic,
+    difficulty: urlParams.difficulty,
+    showCompleted: urlParams.showCompleted,
+    sortKey: urlParams.sortKey,
+    sortDir: urlParams.sortDir,
     handleTabChange,
     handleSearchChange,
     handleSearchSubmit,

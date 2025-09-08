@@ -15,7 +15,7 @@ import type {
 } from "@/types/question-types";
 import { createQuestionId } from "@/utils/dsa";
 import { Notebook, Plus } from "lucide-react";
-import { useState } from "react";
+import { useState, memo, useCallback } from "react";
 import { NotesDialog } from "./NotesDialog";
 import Image from "next/image";
 
@@ -29,8 +29,8 @@ const getDomain = (url: string) => {
   }
 };
 
-// Platform icon component
-const PlatformIcon = ({ url }: { url: string }) => {
+// Memoized platform icon component
+const PlatformIcon = memo(({ url }: { url: string }) => {
   const domain = getDomain(url);
   if (!domain) return null;
 
@@ -43,7 +43,7 @@ const PlatformIcon = ({ url }: { url: string }) => {
       title={`View on ${domain}`}
     >
       <Image
-        src={`https://www.google.com/s2/favicons?domain=${domain}&sz=64`}
+        src={`https://favicon.yandex.net/favicon/${domain}`}
         alt={`${domain} icon`}
         width={18}
         height={18}
@@ -51,7 +51,102 @@ const PlatformIcon = ({ url }: { url: string }) => {
       />
     </a>
   );
-};
+});
+
+PlatformIcon.displayName = "PlatformIcon";
+
+// Memoized question row component
+const QuestionRow = memo(({
+  question,
+  questionId,
+  isCompleted,
+  hasNotes,
+  onToggleCompleted,
+  onNotesClick
+}: {
+  question: DSAQuestion;
+  questionId: string;
+  isCompleted: boolean;
+  hasNotes: boolean;
+  onToggleCompleted: (questionId: string) => void;
+  onNotesClick: (question: DSAQuestion) => void;
+}) => {
+  const handleToggle = useCallback(() => {
+    onToggleCompleted(questionId);
+  }, [onToggleCompleted, questionId]);
+
+  const handleNotes = useCallback(() => {
+    onNotesClick(question);
+  }, [onNotesClick, question]);
+
+  return (
+    <TableRow
+      className={`transition-all duration-200 ${
+        isCompleted
+          ? "bg-gradient-to-r from-emerald-50 to-green-50 dark:from-emerald-950/20 dark:to-green-950/10 border-l-4 border-emerald-500 dark:border-emerald-400 hover:shadow-sm"
+          : "hover:bg-slate-50 dark:hover:bg-slate-800/50"
+      } h-14`}
+    >
+      <TableCell>
+        <Checkbox
+          checked={isCompleted}
+          onCheckedChange={handleToggle}
+          className={
+            isCompleted
+              ? "text-emerald-600 border-emerald-600 data-[state=checked]:bg-emerald-600 data-[state=checked]:border-emerald-600"
+              : "border-slate-300 dark:border-slate-600 hover:border-slate-400 dark:hover:border-slate-500"
+          }
+        />
+      </TableCell>
+      <TableCell className="font-medium whitespace-nowrap">
+        {question.topic}
+      </TableCell>
+      <TableCell className="max-w-[200px] sm:max-w-none truncate sm:whitespace-normal">
+        {question.question}
+      </TableCell>
+      <TableCell>
+        <Badge
+          variant="outline"
+          className={
+            question.difficulty === "Easy"
+              ? "bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300 border-emerald-300 dark:border-emerald-600 font-semibold px-3 py-1"
+              : question.difficulty === "Medium"
+              ? "bg-amber-100 dark:bg-amber-900/50 text-amber-700 dark:text-amber-300 border-amber-300 dark:border-amber-600 font-semibold px-3 py-1"
+              : "bg-red-100 dark:bg-red-900/50 text-red-700 dark:text-red-300 border-red-300 dark:border-red-600 font-semibold px-3 py-1"
+          }
+        >
+          {question.difficulty}
+        </Badge>
+      </TableCell>
+      <TableCell>
+        {question.link !== "Link not provided" ? (
+          <PlatformIcon url={question.link} />
+        ) : (
+          <span className="text-muted-foreground">N/A</span>
+        )}
+      </TableCell>
+      <TableCell>
+        <button
+          onClick={handleNotes}
+          className={`p-2 rounded-lg transition-all duration-200 hover:scale-110 ${
+            hasNotes
+              ? "bg-blue-100 dark:bg-blue-900/50 hover:bg-blue-200 dark:hover:bg-blue-800/50 text-blue-600 dark:text-blue-400"
+              : "bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-400"
+          }`}
+          title={hasNotes ? "View Notes" : "Add Notes"}
+        >
+          {hasNotes ? (
+            <Notebook className="h-4 w-4" />
+          ) : (
+            <Plus className="h-4 w-4" />
+          )}
+        </button>
+      </TableCell>
+    </TableRow>
+  );
+});
+
+QuestionRow.displayName = "QuestionRow";
 
 interface QuestionsTableProps {
   questions: DSAQuestion[];
@@ -63,7 +158,7 @@ interface QuestionsTableProps {
   notesData?: Record<string, string>;
 }
 
-export function QuestionsTable({
+export const QuestionsTable = memo(({
   questions,
   completedQuestions,
   onToggleCompleted,
@@ -71,29 +166,33 @@ export function QuestionsTable({
   currentSortKey,
   currentSortDir,
   notesData = {},
-}: QuestionsTableProps) {
+}: QuestionsTableProps) => {
   const [selectedQuestion, setSelectedQuestion] = useState<DSAQuestion | null>(
     null
   );
   const [isNotesDialogOpen, setIsNotesDialogOpen] = useState(false);
 
-  const handleNotesClick = (question: DSAQuestion) => {
+  const handleNotesClick = useCallback((question: DSAQuestion) => {
     setSelectedQuestion(question);
     setIsNotesDialogOpen(true);
-  };
+  }, []);
+
+  const handleSortClick = useCallback((key: SortKey) => {
+    onSort(key);
+  }, [onSort]);
 
   return (
     <>
-      <div className="border rounded-md w-full min-h-[450px] overflow-x-auto bg-card">
+      <div className="border border-slate-200 dark:border-slate-700 rounded-xl w-full min-h-[450px] overflow-x-auto bg-card shadow-sm">
         <Table>
           <TableHeader>
-            <TableRow className="hover:bg-muted/50 border-b border-border">
+            <TableRow className="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-700">
               <TableHead className="w-[50px]">
                 <span className="sr-only">Status</span>
               </TableHead>
               <TableHead
                 className="cursor-pointer hover:text-primary transition-colors"
-                onClick={() => onSort("topic")}
+                onClick={() => handleSortClick("topic")}
               >
                 Topic
                 {currentSortKey === "topic" && (
@@ -104,7 +203,7 @@ export function QuestionsTable({
               </TableHead>
               <TableHead
                 className="cursor-pointer hover:text-primary transition-colors"
-                onClick={() => onSort("question")}
+                onClick={() => handleSortClick("question")}
               >
                 Question
                 {currentSortKey === "question" && (
@@ -115,7 +214,7 @@ export function QuestionsTable({
               </TableHead>
               <TableHead
                 className="cursor-pointer hover:text-primary transition-colors"
-                onClick={() => onSort("difficulty")}
+                onClick={() => handleSortClick("difficulty")}
               >
                 Difficulty
                 {currentSortKey === "difficulty" && (
@@ -132,70 +231,21 @@ export function QuestionsTable({
           </TableHeader>
           <TableBody>
             {questions.length > 0 ? (
-              questions.map((question, index) => {
+              questions.map((question) => {
                 const questionId = createQuestionId(question);
                 const isCompleted = completedQuestions[questionId];
                 const hasNotes = notesData?.[questionId];
 
                 return (
-                  <TableRow
+                  <QuestionRow
                     key={questionId}
-                    className={`transition-colors ${
-                      isCompleted
-                        ? "dark:bg-green-950/20 bg-green-50 dark:hover:bg-green-950/30 hover:bg-green-100"
-                        : "hover:bg-muted/50"
-                    } h-12`}
-                  >
-                    <TableCell>
-                      <Checkbox
-                        checked={isCompleted}
-                        onCheckedChange={() => onToggleCompleted(questionId)}
-                        className={
-                          isCompleted ? "text-green-500 border-green-500" : ""
-                        }
-                      />
-                    </TableCell>
-                    <TableCell className="font-medium whitespace-nowrap">
-                      {question.topic}
-                    </TableCell>
-                    <TableCell className="max-w-[200px] sm:max-w-none truncate sm:whitespace-normal">
-                      {question.question}
-                    </TableCell>
-                    <TableCell>
-                      <Badge
-                        variant="outline"
-                        className={
-                          question.difficulty === "Easy"
-                            ? "dark:bg-green-950/20 bg-green-50 dark:text-green-400 text-green-700 dark:border-green-500 border-green-700"
-                            : question.difficulty === "Medium"
-                            ? "dark:bg-yellow-950/20 bg-yellow-50 dark:text-yellow-400 text-yellow-700 dark:border-yellow-500 border-yellow-700"
-                            : "dark:bg-red-950/20 bg-red-50 dark:text-red-400 text-red-700 dark:border-red-500 border-red-700"
-                        }
-                      >
-                        {question.difficulty}
-                      </Badge>
-                    </TableCell>
-                    <TableCell>
-                      {question.link !== "Link not provided" ? (
-                        <PlatformIcon url={question.link} />
-                      ) : (
-                        <span className="text-muted-foreground">N/A</span>
-                      )}
-                    </TableCell>
-                    <TableCell>
-                      <button
-                        onClick={() => handleNotesClick(question)}
-                        className="p-2 hover:bg-muted rounded-full transition-colors"
-                        title={hasNotes ? "View Notes" : "Add Notes"}
-                      >
-                        {hasNotes ? (
-                          <Notebook className="h-4 w-4 text-primary" />
-                        ) : (
-                          <Plus className="h-4 w-4 text-muted-foreground" />
-                        )}
-                      </button>
-                    </TableCell>
-                  </TableRow>
+                    question={question}
+                    questionId={questionId}
+                    isCompleted={isCompleted}
+                    hasNotes={!!hasNotes}
+                    onToggleCompleted={onToggleCompleted}
+                    onNotesClick={handleNotesClick}
+                  />
                 );
               })
             ) : (
@@ -225,4 +275,6 @@ export function QuestionsTable({
       )}
     </>
   );
-}
+});
+
+QuestionsTable.displayName = "QuestionsTable";

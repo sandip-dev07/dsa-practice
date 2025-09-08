@@ -7,6 +7,16 @@ const nextConfig = {
         hostname: 'www.google.com',
         pathname: '/s2/favicons/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'icons.duckduckgo.com',
+        pathname: '/ip3/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'favicon.yandex.net',
+        pathname: '/favicon/**',
+      },
     ],
   },
 };
