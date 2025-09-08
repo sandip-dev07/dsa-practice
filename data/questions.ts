@@ -9,7 +9,7 @@ export const dsaQuestions: DSAQuestion[] = [
   // Arrays
   {
     topic: "Arrays",
-    question: "Find Missing and Repeating element",
+    question: "Find the Duplicate Number  ",
     difficulty: "Easy",
     link: "https://leetcode.com/problems/set-mismatch/description/",
   },
