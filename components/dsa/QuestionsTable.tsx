@@ -59,6 +59,7 @@ PlatformIcon.displayName = "PlatformIcon";
 const QuestionRow = memo(({
   question,
   questionId,
+  serial,
   isCompleted,
   hasNotes,
   onToggleCompleted,
@@ -66,6 +67,7 @@ const QuestionRow = memo(({
 }: {
   question: DSAQuestion;
   questionId: string;
+  serial: number;
   isCompleted: boolean;
   hasNotes: boolean;
   onToggleCompleted: (questionId: string) => void;
@@ -83,7 +85,7 @@ const QuestionRow = memo(({
     <TableRow
       className={`transition-all duration-200 ${
         isCompleted
-          ? "bg-gradient-to-r from-emerald-50 to-green-50 dark:from-emerald-950/20 dark:to-green-950/10 border-l-4 border-emerald-500 dark:border-emerald-400 hover:shadow-sm"
+          ? "bg-gradient-to-r from-emerald-50 to-green-50 dark:from-emerald-950/20 dark:to-green-950/10 border-l-4 border-b-0 border-emerald-500 dark:border-emerald-400 hover:shadow-sm"
           : "hover:bg-slate-50 dark:hover:bg-slate-800/50"
       } h-14`}
     >
@@ -97,6 +99,9 @@ const QuestionRow = memo(({
               : "border-slate-300 dark:border-slate-600 hover:border-slate-400 dark:hover:border-slate-500"
           }
         />
+      </TableCell>
+      <TableCell className="w-[60px] text-muted-foreground select-none">
+        {serial}
       </TableCell>
       <TableCell className="font-medium whitespace-nowrap">
         {question.topic}
@@ -156,6 +161,7 @@ interface QuestionsTableProps {
   currentSortKey: SortKey;
   currentSortDir: SortDirection;
   notesData?: Record<string, string>;
+  baseIndex?: number;
 }
 
 export const QuestionsTable = memo(({
@@ -166,6 +172,7 @@ export const QuestionsTable = memo(({
   currentSortKey,
   currentSortDir,
   notesData = {},
+  baseIndex = 0,
 }: QuestionsTableProps) => {
   const [selectedQuestion, setSelectedQuestion] = useState<DSAQuestion | null>(
     null
@@ -190,6 +197,7 @@ export const QuestionsTable = memo(({
               <TableHead className="w-[50px]">
                 <span className="sr-only">Status</span>
               </TableHead>
+              <TableHead className="w-[60px]">S.No</TableHead>
               <TableHead
                 className="cursor-pointer hover:text-primary transition-colors"
                 onClick={() => handleSortClick("topic")}
@@ -231,7 +239,7 @@ export const QuestionsTable = memo(({
           </TableHeader>
           <TableBody>
             {questions.length > 0 ? (
-              questions.map((question) => {
+              questions.map((question, index) => {
                 const questionId = createQuestionId(question);
                 const isCompleted = completedQuestions[questionId];
                 const hasNotes = notesData?.[questionId];
@@ -241,6 +249,7 @@ export const QuestionsTable = memo(({
                     key={questionId}
                     question={question}
                     questionId={questionId}
+                    serial={baseIndex + index + 1}
                     isCompleted={isCompleted}
                     hasNotes={!!hasNotes}
                     onToggleCompleted={onToggleCompleted}

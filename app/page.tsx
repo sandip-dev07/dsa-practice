@@ -114,6 +114,7 @@ const QuestionsTabContent = memo(({
             onSort={handleSort}
             currentSortKey={sortKey}
             currentSortDir={sortDir}
+            baseIndex={(currentPage - 1) * questionsPerPage}
           />
         </div>
 
