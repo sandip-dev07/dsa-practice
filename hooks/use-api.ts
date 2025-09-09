@@ -161,7 +161,7 @@ export function useSaveNotes() {
 export function useAllNotes() {
   // Return empty data since we can't fetch all notes at once
   return {
-    notes: {},
+    notes: {} as Record<string, NotesData>,
     isLoading: false,
     error: null,
     mutateAllNotes: () => {},
