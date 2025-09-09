@@ -86,7 +86,7 @@ const QuestionRow = memo(({
       className={`transition-all duration-200 ${
         isCompleted
           ? "bg-gradient-to-r from-emerald-50 to-green-50 dark:from-emerald-950/20 dark:to-green-950/10 border-l-4 border-b-0 border-emerald-500 dark:border-emerald-400 hover:shadow-sm"
-          : "hover:bg-slate-50 dark:hover:bg-slate-800/50"
+          : "hover:bg-zinc-50 dark:hover:bg-zinc-800/50"
       } h-14`}
     >
       <TableCell>
@@ -96,7 +96,7 @@ const QuestionRow = memo(({
           className={
             isCompleted
               ? "text-emerald-600 border-emerald-600 data-[state=checked]:bg-emerald-600 data-[state=checked]:border-emerald-600"
-              : "border-slate-300 dark:border-slate-600 hover:border-slate-400 dark:hover:border-slate-500"
+              : "border-zinc-300 dark:border-zinc-600 hover:border-zinc-400 dark:hover:border-zinc-500"
           }
         />
       </TableCell>
@@ -136,7 +136,7 @@ const QuestionRow = memo(({
           className={`p-2 rounded-lg transition-all duration-200 hover:scale-110 ${
             hasNotes
               ? "bg-blue-100 dark:bg-blue-900/50 hover:bg-blue-200 dark:hover:bg-blue-800/50 text-blue-600 dark:text-blue-400"
-              : "bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-400"
+              : "bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-400"
           }`}
           title={hasNotes ? "View Notes" : "Add Notes"}
         >
@@ -190,10 +190,10 @@ export const QuestionsTable = memo(({
 
   return (
     <>
-      <div className="border border-slate-200 dark:border-slate-700 rounded-xl w-full min-h-[450px] overflow-x-auto bg-card shadow-sm">
+      <div className="border border-zinc-200 dark:border-zinc-700 rounded-xl w-full min-h-[450px] overflow-x-auto bg-card shadow-sm">
         <Table>
           <TableHeader>
-            <TableRow className="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-700">
+            <TableRow className="bg-zinc-50 dark:bg-zinc-800/50 border-b border-zinc-200 dark:border-zinc-700">
               <TableHead className="w-[50px]">
                 <span className="sr-only">Status</span>
               </TableHead>

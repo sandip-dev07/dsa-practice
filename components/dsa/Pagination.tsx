@@ -52,7 +52,7 @@ const PaginationComponent: React.FC<PaginationProps> = ({
               className={`transition-all duration-200 ${
                 currentPage === i
                   ? "bg-zinc-600 text-white shadow-md"
-                  : "cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg"
+                  : "cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-lg"
               }`}
             >
               {i}
@@ -69,7 +69,7 @@ const PaginationComponent: React.FC<PaginationProps> = ({
             className={`transition-all duration-200 ${
               currentPage === 1
                 ? "bg-zinc-600 text-white shadow-md"
-                : "cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg"
+                : "cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-lg"
             }`}
           >
             1
@@ -97,7 +97,7 @@ const PaginationComponent: React.FC<PaginationProps> = ({
               className={`transition-all duration-200 ${
                 currentPage === i
                   ? "bg-zinc-600 text-white shadow-md"
-                  : "cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg"
+                  : "cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-lg"
               }`}
             >
               {i}
@@ -122,7 +122,7 @@ const PaginationComponent: React.FC<PaginationProps> = ({
             className={`transition-all duration-200 ${
               currentPage === totalPages
                 ? "bg-zinc-600 text-white shadow-md"
-                : "cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg"
+                : "cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-lg"
             }`}
           >
             {totalPages}
@@ -144,12 +144,12 @@ const PaginationComponent: React.FC<PaginationProps> = ({
 
   return (
     <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-      <div className="text-center text-sm text-slate-600 dark:text-slate-400 font-medium order-2 sm:order-1 bg-slate-50 dark:bg-slate-800/50 px-3 py-2 rounded-lg">
+      <div className="text-center text-sm text-zinc-600 dark:text-zinc-400 font-medium order-2 sm:order-1 bg-zinc-50 dark:bg-zinc-800/50 px-3 py-2 rounded-lg">
         Showing {itemRangeDisplay} questions
       </div>
 
       <div className="order-1 sm:order-2 w-full sm:w-auto">
-        <PaginationRoot className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl p-2 shadow-sm">
+        <PaginationRoot className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-xl p-2 shadow-sm">
           <PaginationContent>
             <PaginationItem>
               <PaginationPrevious
@@ -157,7 +157,7 @@ const PaginationComponent: React.FC<PaginationProps> = ({
                 className={`transition-all duration-200 ${
                   currentPage === 1
                     ? "pointer-events-none opacity-50"
-                    : "cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg"
+                    : "cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-lg"
                 }`}
               />
             </PaginationItem>
@@ -170,7 +170,7 @@ const PaginationComponent: React.FC<PaginationProps> = ({
                 className={`transition-all duration-200 ${
                   currentPage === totalPages
                     ? "pointer-events-none opacity-50"
-                    : "cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg"
+                    : "cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-lg"
                 }`}
               />
             </PaginationItem>

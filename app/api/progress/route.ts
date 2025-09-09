@@ -1,10 +1,37 @@
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
+import { unstable_cache } from "next/cache";
+import { revalidateTag } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { authOptions } from "../auth/[...nextauth]/options";
 import { RateLimit } from "@/utils/rate-limit";
 
 const limiter = new RateLimit(15, 60 * 1000); // 15 requests per minute
+
+// Cached function to fetch user progress
+const getUserProgress = unstable_cache(
+  async (userId: string) => {
+    return await prisma.progress.findMany({
+      where: {
+        userId: userId,
+      },
+      select: {
+        question: true,
+        solved: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+      orderBy: {
+        updatedAt: 'desc',
+      },
+    });
+  },
+  ['user-progress'],
+  {
+    revalidate: 3600, // 1 hour in seconds
+    tags: ['progress'],
+  }
+);
 
 export async function POST(req: Request) {
   try {
@@ -62,6 +89,9 @@ export async function POST(req: Request) {
       },
     });
 
+    // Revalidate cache when progress is updated
+    revalidateTag('progress');
+
     return NextResponse.json(
       {
         question: progress.question,
@@ -86,20 +116,8 @@ export async function GET(req: Request) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const progress = await prisma.progress.findMany({
-      where: {
-        userId: session.user.id,
-      },
-      select: {
-        question: true,
-        solved: true,
-        createdAt: true,
-        updatedAt: true,
-      },
-      orderBy: {
-        updatedAt: 'desc',
-      },
-    });
+    // Use cached function
+    const progress = await getUserProgress(session.user.id);
 
     return NextResponse.json(progress);
   } catch (error) {

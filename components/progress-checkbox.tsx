@@ -5,6 +5,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useSession } from "next-auth/react";
 import { LoginDialog } from "@/components/login-dialog";
 import { useLoginDialog } from "@/hooks/use-login-dialog";
+import { useUpdateProgress } from "@/hooks/use-api";
 
 interface ProgressCheckboxProps {
   question: string;
@@ -16,6 +17,7 @@ export function ProgressCheckbox({ question, topic, initialSolved = false }: Pro
   const { data: session, status } = useSession();
   const [solved, setSolved] = useState(initialSolved);
   const { onOpen } = useLoginDialog();
+  const { updateProgress } = useUpdateProgress();
 
   useEffect(() => {
     setSolved(initialSolved);
@@ -27,28 +29,25 @@ export function ProgressCheckbox({ question, topic, initialSolved = false }: Pro
       return;
     }
 
+    // Optimistically update UI
+    const previousState = solved;
+    setSolved(checked);
+
     try {
-      const response = await fetch("/api/progress", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          question,
-          topic,
-          solved: checked,
-        }),
+      const result = await updateProgress({
+        question,
+        topic,
+        solved: checked,
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to update progress");
+      if (!result) {
+        // Revert optimistic update on failure
+        setSolved(previousState);
       }
-
-      setSolved(checked);
     } catch (error) {
       console.error("Error updating progress:", error);
       // Revert the checkbox state on error
-      setSolved(!checked);
+      setSolved(previousState);
     }
   };
 

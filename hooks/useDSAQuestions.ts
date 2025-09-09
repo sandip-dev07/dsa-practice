@@ -20,6 +20,7 @@ import {
 } from "@/utils/dsa";
 import { toast } from "sonner";
 import { useLoginDialog } from "@/hooks/use-login-dialog";
+import { useUserProgress, useUpdateProgress, useAllNotes } from "./use-api";
 
 // Constants
 const QUESTIONS_PER_PAGE = 15;
@@ -30,6 +31,11 @@ export function useDSAQuestions() {
   const searchParams = useSearchParams();
   const { data: session, status } = useSession();
   const loginDialog = useLoginDialog();
+
+  // SWR hooks for data fetching
+  const { progress, isLoading: progressLoading } = useUserProgress();
+  const { notes: allNotes, isLoading: notesLoading } = useAllNotes();
+  const { updateProgress: updateProgressMutation, isUpdating } = useUpdateProgress();
 
   // Memoized URL params
   const urlParams = useMemo(
@@ -49,10 +55,31 @@ export function useDSAQuestions() {
 
   // State
   const [inputSearch, setInputSearch] = useState(urlParams.search);
-  const [completedQuestions, setCompletedQuestions] =
-    useState<CompletedQuestionsMap>({});
-  const [notesData, setNotesData] = useState<Record<string, string>>({});
-  const [isLoading, setIsLoading] = useState(true);
+
+  // Memoized completed questions from progress data
+  const completedQuestions = useMemo<CompletedQuestionsMap>(() => {
+    const progressMap: CompletedQuestionsMap = {};
+    progress.forEach((item) => {
+      if (item.solved) {
+        progressMap[item.question] = true;
+      }
+    });
+    return progressMap;
+  }, [progress]);
+
+  // Memoized notes data from all notes
+  const notesData = useMemo<Record<string, string>>(() => {
+    const notesMap: Record<string, string> = {};
+    Object.entries(allNotes).forEach(([questionTopic, noteData]) => {
+      if (noteData?.content) {
+        notesMap[questionTopic] = noteData.content;
+      }
+    });
+    return notesMap;
+  }, [allNotes]);
+
+  // Combined loading state
+  const isLoading = progressLoading || notesLoading;
 
   // Memoized topics array (computed once)
   const topics = useMemo(
@@ -106,61 +133,10 @@ export function useDSAQuestions() {
     [filteredQuestions, pagination.currentPage, pagination.questionsPerPage]
   );
 
-  // Optimized data fetching effect
+  // Update search input when URL param changes
   useEffect(() => {
-    let isMounted = true;
-
-    const fetchProgress = async () => {
-      if (status === "authenticated") {
-        try {
-          // Parallel API calls for better performance
-          const [progressResponse, notesResponse] = await Promise.all([
-            fetch("/api/progress"),
-            fetch("/api/notes"),
-          ]);
-
-          if (!isMounted) return;
-
-          // Handle progress data
-          if (progressResponse.ok) {
-            const progressData = await progressResponse.json();
-            const progressMap: CompletedQuestionsMap = {};
-            progressData.forEach(
-              (item: { question: string; solved: boolean }) => {
-                if (item.solved) {
-                  progressMap[item.question] = true;
-                }
-              }
-            );
-            setCompletedQuestions(progressMap);
-          }
-
-          // Handle notes data
-          if (notesResponse.ok) {
-            const notesData = await notesResponse.json();
-            setNotesData(notesData);
-          }
-        } catch (error) {
-          if (isMounted) {
-            toast.error("Failed to load data");
-          }
-        }
-      } else {
-        setCompletedQuestions({});
-        setNotesData({});
-      }
-
-      if (isMounted) {
-        setIsLoading(false);
-      }
-    };
-
-    fetchProgress();
-
-    return () => {
-      isMounted = false;
-    };
-  }, [status]);
+    setInputSearch(urlParams.search);
+  }, [urlParams.search]);
 
   // Memoized toggle completed function
   const toggleCompleted = useCallback(
@@ -178,60 +154,29 @@ export function useDSAQuestions() {
 
       const newSolvedState = !completedQuestions[questionId];
 
-      // Optimistically update UI
-      setCompletedQuestions((prev) => ({
-        ...prev,
-        [questionId]: newSolvedState,
-      }));
-
       try {
-        const response = await fetch("/api/progress", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            question: questionId,
-            topic: question.topic,
-            solved: newSolvedState,
-          }),
+        const result = await updateProgressMutation({
+          question: questionId,
+          topic: question.topic,
+          solved: newSolvedState,
         });
 
-        if (!response.ok) {
-          // Revert optimistic update if request failed
-          setCompletedQuestions((prev) => ({
-            ...prev,
-            [questionId]: !newSolvedState,
-          }));
-
-          const data = await response.json();
-          if (response.status === 429) {
-            const reset = response.headers.get("X-RateLimit-Reset");
-            const resetInSeconds = reset ? parseInt(reset, 10) : 60;
-            toast.error(
-              `Rate limit exceeded. Please wait ${resetInSeconds} seconds before trying again.`
-            );
-          } else {
-            throw new Error(data.error || "Failed to update progress");
-          }
-          return;
+        if (result) {
+          toast.success(
+            `Question ${
+              newSolvedState ? "marked as completed" : "marked as incomplete"
+            }`
+          );
+        } else {
+          // The mutation hook will handle reverting optimistic updates
+          toast.error("Failed to update progress");
         }
-
-        const data = await response.json();
-        if (data.error) {
-          throw new Error(data.error);
-        }
-
-        toast.success(
-          `Question ${
-            newSolvedState ? "marked as completed" : "marked as incomplete"
-          }`
-        );
       } catch (error) {
+        console.error("Error updating progress:", error);
         toast.error("Failed to update progress");
       }
     },
-    [status, completedQuestions, loginDialog]
+    [status, completedQuestions, loginDialog, updateProgressMutation]
   );
 
   // Memoized query string creator
@@ -316,11 +261,6 @@ export function useDSAQuestions() {
     },
     [router, createQueryString, urlParams.sortKey, urlParams.sortDir]
   );
-
-  // Update search input when URL param changes
-  useEffect(() => {
-    setInputSearch(urlParams.search);
-  }, [urlParams.search]);
 
   // Memoized statistics calculations
   const statistics = useMemo(

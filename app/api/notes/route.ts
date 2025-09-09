@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
+import { unstable_cache } from "next/cache";
+import { revalidateTag } from "next/cache";
 import { authOptions } from "../auth/[...nextauth]/options";
 import { prisma } from "@/lib/prisma";
 import { z } from "zod";
@@ -75,6 +77,36 @@ function sanitizeRichText(input: string): string {
   return trimmed.replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '');
 }
 
+// Cached function to fetch notes for a specific question/topic
+const getUserNotes = unstable_cache(
+  async (userId: string, question: string, topic: string) => {
+    const progress = await prisma.progress.findUnique({
+      where: {
+        userId_question: {
+          userId: userId,
+          question: question,
+        },
+      },
+      select: {
+        notes: {
+          select: {
+            id: true,
+            content: true,
+            updatedAt: true,
+          },
+        },
+      },
+    });
+
+    return progress?.notes || null;
+  },
+  ['user-notes'],
+  {
+    revalidate: 3600, // 1 hour in seconds
+    tags: ['notes'],
+  }
+);
+
 export async function GET(request: Request) {
   try {
     const { user, error } = await validateUser(request);
@@ -99,27 +131,12 @@ export async function GET(request: Request) {
       topic: sanitizedTopic
     });
 
-    const progress = await prisma.progress.findUnique({
-      where: {
-        userId_question: {
-          userId: user.id,
-          question: sanitizedQuestion,
-        },
-      },
-      select: {
-        notes: {
-          select: {
-            id: true,
-            content: true,
-            updatedAt: true,
-          },
-        },
-      },
-    });
+    // Use cached function
+    const notes = await getUserNotes(user.id, sanitizedQuestion, sanitizedTopic);
 
-    console.log("Notes fetch result:", !!progress?.notes);
+    console.log("Notes fetch result:", !!notes);
 
-    return NextResponse.json(progress?.notes || null);
+    return NextResponse.json(notes);
   } catch (error) {
     console.error("[NOTES_GET]", error);
     return new NextResponse("Internal server error", { status: 500 });
@@ -196,6 +213,9 @@ export async function POST(request: Request) {
     });
 
     console.log("Notes saved successfully:", { notesId: result.id });
+
+    // Revalidate cache when notes are updated
+    revalidateTag('notes');
 
     return NextResponse.json({
       success: true,
