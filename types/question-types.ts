@@ -3,6 +3,8 @@ export interface DSAQuestion {
   question: string;
   difficulty: "Easy" | "Medium" | "Hard";
   link: string;
+  id?: string; // Optional ID from JSON files
+  sheet?: string; // Optional sheet name for analysis
 }
 
 export type CompletedQuestionsMap = Record<string, boolean>;

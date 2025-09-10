@@ -11,6 +11,7 @@ import type {
 } from "@/types/question-types";
 import {
   createQuestionId,
+  validateCompletedQuestions,
   calculateTopicCounts,
   calculateDifficultyCounts,
   calculateCompletedCounts,
@@ -64,16 +65,18 @@ export function useDSAQuestions() {
     [urlParams.sheet]
   );
 
-  // Memoized completed questions from progress data
+  // Memoized completed questions from progress data with validation
   const completedQuestions = useMemo<CompletedQuestionsMap>(() => {
     const progressMap: CompletedQuestionsMap = {};
     progress.forEach((item) => {
-      if (item.solved) {
+      if (item.solved && item.questionId) {
         progressMap[item.questionId] = true;
       }
     });
-    return progressMap;
-  }, [progress]);
+
+    // Validate against current sheet questions to ensure consistency
+    return validateCompletedQuestions(progressMap, selectedSheetQuestions);
+  }, [progress, selectedSheetQuestions]);
 
   // Memoized notes data from all notes
   const notesData = useMemo<Record<string, string>>(() => {
