@@ -14,7 +14,7 @@ import type {
   SortDirection,
 } from "@/types/question-types";
 import { createQuestionId } from "@/utils/dsa";
-import { Notebook, Plus } from "lucide-react";
+import { Notebook, Plus, ExternalLink } from "lucide-react";
 import { useState, memo, useCallback } from "react";
 import { NotesDialog } from "./NotesDialog";
 import Image from "next/image";
@@ -22,7 +22,9 @@ import Image from "next/image";
 // Helper function to extract domain from URL
 const getDomain = (url: string) => {
   try {
-    const domain = new URL(url).hostname;
+    // Handle URLs without protocol
+    const fullUrl = url.startsWith('http') ? url : `https://${url}`;
+    const domain = new URL(fullUrl).hostname;
     return domain;
   } catch {
     return "";
@@ -34,12 +36,15 @@ const PlatformIcon = memo(({ url }: { url: string }) => {
   const domain = getDomain(url);
   if (!domain) return null;
 
-  return (
+  // Ensure full URL for the link
+  const fullUrl = url.startsWith('http') ? url : `https://${url}`;
+
+    return (
     <a
-      href={url}
+      href={fullUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="hover:opacity-80 transition-opacity"
+      className="hover:opacity-80 transition-opacity inline-flex items-center justify-center"
       title={`View on ${domain}`}
     >
       <Image
@@ -47,8 +52,19 @@ const PlatformIcon = memo(({ url }: { url: string }) => {
         alt={`${domain} icon`}
         width={18}
         height={18}
-        className="w-5 h-5"
+        className="w-5 h-5 rounded-sm"
+        onError={(e) => {
+          // Replace with fallback icon on error
+          e.currentTarget.style.display = 'none';
+          const fallbackIcon = e.currentTarget.nextElementSibling as HTMLElement;
+          if (fallbackIcon) {
+            fallbackIcon.style.display = 'inline-flex';
+          }
+        }}
       />
+      <div className="w-5 h-5 rounded-sm bg-muted items-center justify-center hidden">
+        <ExternalLink className="w-3 h-3 text-muted-foreground" />
+      </div>
     </a>
   );
 });
@@ -124,10 +140,10 @@ const QuestionRow = memo(({
         </Badge>
       </TableCell>
       <TableCell>
-        {question.link !== "Link not provided" ? (
+        {question.link && question.link.trim() && question.link !== "Link not provided" ? (
           <PlatformIcon url={question.link} />
         ) : (
-          <span className="text-muted-foreground">N/A</span>
+          <span className="text-muted-foreground text-sm">N/A</span>
         )}
       </TableCell>
       <TableCell>
