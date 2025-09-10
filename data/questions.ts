@@ -23,7 +23,7 @@ export const sheets = {
 } as const;
 
 export const sheetOptions = [
-  { value: 'gfg', label: 'GFG DSA Sheet' },
   { value: 'striver', label: 'Striver SDE Sheet' },
   { value: 'arsh', label: 'Arsh Goyel Sheet' },
+  { value: 'gfg', label: 'GFG DSA Sheet' },
 ] as const;

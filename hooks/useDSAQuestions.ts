@@ -43,7 +43,7 @@ export function useDSAQuestions() {
     () => ({
       activeTab: (searchParams.get("tab") as TabValue) || "questions",
       search: searchParams.get("search") || "",
-      sheet: (searchParams.get("sheet") as SheetType) || "gfg",
+      sheet: (searchParams.get("sheet") as SheetType) || "striver",
       topic: searchParams.get("topic") || "all",
       difficulty: searchParams.get("difficulty") || "all",
       showCompleted:
