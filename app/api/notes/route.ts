@@ -8,12 +8,12 @@ import { z } from "zod";
 
 // Input validation schemas
 const getNotesSchema = z.object({
-  question: z.string().min(1, "Question is required").max(1000, "Question too long"),
+  questionId: z.string().min(1, "Question ID is required").max(1000, "Question ID too long"),
   topic: z.string().min(1, "Topic is required").max(200, "Topic too long"),
 });
 
 const saveNotesSchema = z.object({
-  question: z.string().min(1, "Question is required").max(1000, "Question too long"),
+  questionId: z.string().min(1, "Question ID is required").max(1000, "Question ID too long"),
   topic: z.string().min(1, "Topic is required").max(200, "Topic too long"),
   content: z.string().min(1, "Content is required").max(10000, "Content too long"),
 });
@@ -79,12 +79,12 @@ function sanitizeRichText(input: string): string {
 
 // Cached function to fetch notes for a specific question/topic
 const getUserNotes = unstable_cache(
-  async (userId: string, question: string, topic: string) => {
+  async (userId: string, questionId: string, topic: string) => {
     const progress = await prisma.progress.findUnique({
       where: {
-        userId_question: {
+        userId_questionId: {
           userId: userId,
-          question: question,
+          questionId: questionId,
         },
       },
       select: {
@@ -113,26 +113,26 @@ export async function GET(request: Request) {
     if (error) return error;
 
     const { searchParams } = new URL(request.url);
-    const question = searchParams.get("question");
+    const questionId = searchParams.get("questionId");
     const topic = searchParams.get("topic");
 
     // Validate input
-    const validationResult = getNotesSchema.safeParse({ question, topic });
+    const validationResult = getNotesSchema.safeParse({ questionId, topic });
     if (!validationResult.success) {
       return new NextResponse(validationResult.error.errors[0].message, { status: 400 });
     }
 
-    const sanitizedQuestion = sanitizeIdentifier(question!);
+    const sanitizedQuestionId = sanitizeIdentifier(questionId!);
     const sanitizedTopic = sanitizeIdentifier(topic!);
 
     console.log("Fetching notes for:", {
       userId: user.id,
-      question: sanitizedQuestion,
+      questionId: sanitizedQuestionId,
       topic: sanitizedTopic
     });
 
     // Use cached function
-    const notes = await getUserNotes(user.id, sanitizedQuestion, sanitizedTopic);
+    const notes = await getUserNotes(user.id, sanitizedQuestionId, sanitizedTopic);
 
     console.log("Notes fetch result:", !!notes);
 
@@ -156,16 +156,16 @@ export async function POST(request: Request) {
       return new NextResponse(validationResult.error.errors[0].message, { status: 400 });
     }
 
-    const { question, topic, content } = validationResult.data;
+    const { questionId, topic, content } = validationResult.data;
 
     // Sanitize input
-    const sanitizedQuestion = sanitizeIdentifier(question);
+    const sanitizedQuestionId = sanitizeIdentifier(questionId);
     const sanitizedTopic = sanitizeIdentifier(topic);
     const sanitizedContent = sanitizeRichText(content);
 
     console.log("Saving notes for:", {
       userId: user.id,
-      question: sanitizedQuestion,
+      questionId: sanitizedQuestionId,
       topic: sanitizedTopic,
       contentLength: sanitizedContent.length
     });
@@ -175,15 +175,15 @@ export async function POST(request: Request) {
       // First, ensure the progress exists
       const progress = await tx.progress.upsert({
         where: {
-          userId_question: {
+          userId_questionId: {
             userId: user.id,
-            question: sanitizedQuestion,
+            questionId: sanitizedQuestionId,
           },
         },
         update: {},
         create: {
           userId: user.id,
-          question: sanitizedQuestion,
+          questionId: sanitizedQuestionId,
           topic: sanitizedTopic,
           solved: false,
         },

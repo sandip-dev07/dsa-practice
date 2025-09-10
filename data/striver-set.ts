@@ -5,6 +5,7 @@ export interface DSAQuestion {
   link: string;
 }
 
+// Striver SDE Sheet
 export const dsaQuestions: DSAQuestion[] = [
   // Day 1: Arrays
   {

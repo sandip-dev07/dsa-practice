@@ -8,12 +8,12 @@ import { useLoginDialog } from "@/hooks/use-login-dialog";
 import { useUpdateProgress } from "@/hooks/use-api";
 
 interface ProgressCheckboxProps {
-  question: string;
+  questionId: string;
   topic: string;
   initialSolved?: boolean;
 }
 
-export function ProgressCheckbox({ question, topic, initialSolved = false }: ProgressCheckboxProps) {
+export function ProgressCheckbox({ questionId, topic, initialSolved = false }: ProgressCheckboxProps) {
   const { data: session, status } = useSession();
   const [solved, setSolved] = useState(initialSolved);
   const { onOpen } = useLoginDialog();
@@ -35,7 +35,7 @@ export function ProgressCheckbox({ question, topic, initialSolved = false }: Pro
 
     try {
       const result = await updateProgress({
-        question,
+        questionId,
         topic,
         solved: checked,
       });

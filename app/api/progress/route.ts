@@ -16,7 +16,7 @@ const getUserProgress = unstable_cache(
         userId: userId,
       },
       select: {
-        question: true,
+        questionId: true,
         solved: true,
         createdAt: true,
         updatedAt: true,
@@ -61,9 +61,9 @@ export async function POST(req: Request) {
       );
     }
 
-    const { question, topic, solved } = await req.json();
+    const { questionId, topic, solved } = await req.json();
 
-    if (!question || typeof solved !== 'boolean') {
+    if (!questionId || typeof solved !== 'boolean') {
       return NextResponse.json(
         { error: "Invalid request data" },
         { status: 400, headers }
@@ -73,9 +73,9 @@ export async function POST(req: Request) {
     // Update or create progress
     const progress = await prisma.progress.upsert({
       where: {
-        userId_question: {
+        userId_questionId: {
           userId: session.user.id,
-          question: question,
+          questionId: questionId,
         },
       },
       update: {
@@ -83,7 +83,7 @@ export async function POST(req: Request) {
       },
       create: {
         userId: session.user.id,
-        question: question,
+        questionId: questionId,
         topic: topic || "",
         solved: solved,
       },
@@ -94,7 +94,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json(
       {
-        question: progress.question,
+        questionId: progress.questionId,
         solved: progress.solved,
       },
       { headers }

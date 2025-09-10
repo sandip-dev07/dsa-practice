@@ -21,6 +21,7 @@ interface NotesDialogProps {
   isOpen: boolean;
   onClose: () => void;
   question: string;
+  questionId: string;
   topic: string;
   initialContent?: string;
 }
@@ -29,13 +30,14 @@ const NotesDialogComponent: React.FC<NotesDialogProps> = ({
   isOpen,
   onClose,
   question,
+  questionId,
   topic,
   initialContent = "",
 }) => {
   const [content, setContent] = useState(initialContent);
 
   // SWR hooks for notes data
-  const { notes, isLoading: isFetching, error: fetchError } = useNotes(question, topic);
+  const { notes, isLoading: isFetching, error: fetchError } = useNotes(questionId, topic);
   const { saveNotes, isSaving: isLoading, error: saveError } = useSaveNotes();
 
   // Memoized derived values
@@ -84,13 +86,12 @@ const NotesDialogComponent: React.FC<NotesDialogProps> = ({
 
     try {
       const result = await saveNotes({
-        question,
+        questionId: questionId,
         topic,
         content: content.trim(),
       });
 
       if (result) {
-        toast.success("Notes saved successfully");
         onClose();
       } else {
         toast.error("Failed to save notes");

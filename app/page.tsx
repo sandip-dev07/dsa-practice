@@ -40,6 +40,8 @@ const QuestionsTabContent = memo(({
   inputSearch,
   handleSearchChange,
   handleSearchSubmit,
+  selectedSheet,
+  handleSheetChange,
   topic,
   handleTopicChange,
   difficulty,
@@ -65,6 +67,8 @@ const QuestionsTabContent = memo(({
   inputSearch: string;
   handleSearchChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleSearchSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  selectedSheet: any;
+  handleSheetChange: (value: any) => void;
   topic: string;
   handleTopicChange: (value: string) => void;
   difficulty: string;
@@ -91,6 +95,8 @@ const QuestionsTabContent = memo(({
       search={inputSearch}
       onSearchChange={handleSearchChange}
       onSearchSubmit={handleSearchSubmit}
+      selectedSheet={selectedSheet}
+      onSheetChange={handleSheetChange}
       topic={topic}
       onTopicChange={handleTopicChange}
       difficulty={difficulty}
@@ -178,6 +184,8 @@ export default function DSAQuestionsPage(): JSX.Element {
     topicCompletion,
     difficultyCompletion,
     activeTab,
+    search,
+    selectedSheet,
     topic,
     difficulty,
     showCompleted,
@@ -186,6 +194,7 @@ export default function DSAQuestionsPage(): JSX.Element {
     handleTabChange,
     handleSearchChange,
     handleSearchSubmit,
+    handleSheetChange,
     handleTopicChange,
     handleDifficultyChange,
     handleCompletedChange,
@@ -238,6 +247,8 @@ export default function DSAQuestionsPage(): JSX.Element {
             inputSearch={inputSearch}
             handleSearchChange={handleSearchChange}
             handleSearchSubmit={handleSearchSubmit}
+            selectedSheet={selectedSheet}
+            handleSheetChange={handleSheetChange}
             topic={topic}
             handleTopicChange={handleTopicChange}
             difficulty={difficulty}

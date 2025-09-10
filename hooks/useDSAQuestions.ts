@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { dsaQuestions } from "@/data/arsh-goyel-sheet";
+import { sheets, type SheetType } from "@/data/questions";
 import type {
   CompletedQuestionsMap,
   TabValue,
@@ -35,13 +35,15 @@ export function useDSAQuestions() {
   // SWR hooks for data fetching
   const { progress, isLoading: progressLoading } = useUserProgress();
   const { notes: allNotes, isLoading: notesLoading } = useAllNotes();
-  const { updateProgress: updateProgressMutation, isUpdating } = useUpdateProgress();
+  const { updateProgress: updateProgressMutation, isUpdating } =
+    useUpdateProgress();
 
   // Memoized URL params
   const urlParams = useMemo(
     () => ({
       activeTab: (searchParams.get("tab") as TabValue) || "questions",
       search: searchParams.get("search") || "",
+      sheet: (searchParams.get("sheet") as SheetType) || "gfg",
       topic: searchParams.get("topic") || "all",
       difficulty: searchParams.get("difficulty") || "all",
       showCompleted:
@@ -56,12 +58,18 @@ export function useDSAQuestions() {
   // State
   const [inputSearch, setInputSearch] = useState(urlParams.search);
 
+  // Memoized selected sheet questions
+  const selectedSheetQuestions = useMemo(
+    () => sheets[urlParams.sheet],
+    [urlParams.sheet]
+  );
+
   // Memoized completed questions from progress data
   const completedQuestions = useMemo<CompletedQuestionsMap>(() => {
     const progressMap: CompletedQuestionsMap = {};
     progress.forEach((item) => {
       if (item.solved) {
-        progressMap[item.question] = true;
+        progressMap[item.questionId] = true;
       }
     });
     return progressMap;
@@ -83,14 +91,14 @@ export function useDSAQuestions() {
 
   // Memoized topics array (computed once)
   const topics = useMemo(
-    () => Array.from(new Set(dsaQuestions.map((q) => q.topic))),
-    []
+    () => Array.from(new Set(selectedSheetQuestions.map((q) => q.topic))),
+    [selectedSheetQuestions]
   );
 
   // Memoized filtered questions
   const filteredQuestions = useMemo(
     () =>
-      filterQuestions(dsaQuestions, {
+      filterQuestions(selectedSheetQuestions, {
         search: urlParams.search,
         topic: urlParams.topic,
         difficulty: urlParams.difficulty,
@@ -100,6 +108,7 @@ export function useDSAQuestions() {
         sortDir: urlParams.sortDir,
       }),
     [
+      selectedSheetQuestions,
       urlParams.search,
       urlParams.topic,
       urlParams.difficulty,
@@ -147,7 +156,7 @@ export function useDSAQuestions() {
       }
 
       // Find the question by its ID
-      const question = dsaQuestions.find(
+      const question = selectedSheetQuestions.find(
         (q) => createQuestionId(q) === questionId
       );
       if (!question) return;
@@ -156,19 +165,12 @@ export function useDSAQuestions() {
 
       try {
         const result = await updateProgressMutation({
-          question: questionId,
+          questionId: questionId,
           topic: question.topic,
           solved: newSolvedState,
         });
 
-        if (result) {
-          toast.success(
-            `Question ${
-              newSolvedState ? "marked as completed" : "marked as incomplete"
-            }`
-          );
-        } else {
-          // The mutation hook will handle reverting optimistic updates
+        if (!result) {
           toast.error("Failed to update progress");
         }
       } catch (error) {
@@ -176,7 +178,13 @@ export function useDSAQuestions() {
         toast.error("Failed to update progress");
       }
     },
-    [status, completedQuestions, loginDialog, updateProgressMutation]
+    [
+      status,
+      completedQuestions,
+      loginDialog,
+      updateProgressMutation,
+      selectedSheetQuestions,
+    ]
   );
 
   // Memoized query string creator
@@ -242,6 +250,13 @@ export function useDSAQuestions() {
     [router, createQueryString]
   );
 
+  const handleSheetChange = useCallback(
+    (value: SheetType): void => {
+      router.push(`?${createQueryString({ sheet: value, page: "1" })}`);
+    },
+    [router, createQueryString]
+  );
+
   const handlePageChange = useCallback(
     (newPage: number): void => {
       router.push(`?${createQueryString({ page: newPage.toString() })}`);
@@ -265,23 +280,23 @@ export function useDSAQuestions() {
   // Memoized statistics calculations
   const statistics = useMemo(
     () => ({
-      topicCounts: calculateTopicCounts(dsaQuestions),
-      difficultyCounts: calculateDifficultyCounts(dsaQuestions),
+      topicCounts: calculateTopicCounts(selectedSheetQuestions),
+      difficultyCounts: calculateDifficultyCounts(selectedSheetQuestions),
       completedCounts: calculateCompletedCounts(
         completedQuestions,
-        dsaQuestions.length
+        selectedSheetQuestions.length
       ),
       topicCompletion: calculateTopicCompletion(
-        dsaQuestions,
+        selectedSheetQuestions,
         completedQuestions,
         topics
       ),
       difficultyCompletion: calculateDifficultyCompletion(
-        dsaQuestions,
+        selectedSheetQuestions,
         completedQuestions
       ),
     }),
-    [completedQuestions, topics]
+    [selectedSheetQuestions, completedQuestions, topics]
   );
 
   return {
@@ -301,6 +316,7 @@ export function useDSAQuestions() {
     difficultyCompletion: statistics.difficultyCompletion,
     activeTab: urlParams.activeTab,
     search: urlParams.search,
+    selectedSheet: urlParams.sheet,
     topic: urlParams.topic,
     difficulty: urlParams.difficulty,
     showCompleted: urlParams.showCompleted,
@@ -309,6 +325,7 @@ export function useDSAQuestions() {
     handleTabChange,
     handleSearchChange,
     handleSearchSubmit,
+    handleSheetChange,
     handleTopicChange,
     handleDifficultyChange,
     handleCompletedChange,

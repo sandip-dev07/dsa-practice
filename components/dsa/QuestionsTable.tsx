@@ -279,6 +279,7 @@ export const QuestionsTable = memo(({
             setSelectedQuestion(null);
           }}
           question={selectedQuestion.question}
+          questionId={createQuestionId(selectedQuestion)}
           topic={selectedQuestion.topic}
         />
       )}

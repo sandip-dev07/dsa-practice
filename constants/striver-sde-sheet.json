@@ -1,0 +1,1346 @@
+[
+    {
+        "topic": "Arrays",
+        "question": "Set Matrix Zeros",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/set-matrix-zeroes/",
+        "id": "89d99ab5-b3ce-4d9c-b1f1-8a1417ea16dd"
+    },
+    {
+        "topic": "Arrays",
+        "question": "Pascal's Triangle",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/pascals-triangle/",
+        "id": "b1d95f11-e3e5-4323-a914-08e9cea12f67"
+    },
+    {
+        "topic": "Arrays",
+        "question": "Next Permutation",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/next-permutation/",
+        "id": "25ff1070-5bcd-414c-9619-2051ed844bbb"
+    },
+    {
+        "topic": "Arrays",
+        "question": "Kadane's Algorithm",
+        "difficulty": "Easy",
+        "link": "leetcode.com/problems/maximum-subarray/",
+        "id": "77f7ee61-eaa6-443f-967b-52cc65965bc0"
+    },
+    {
+        "topic": "Arrays",
+        "question": "Sort an array of 0's, 1's and 2's",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/sort-colors/",
+        "id": "2c4a5f75-2028-4587-a798-7421760fa2d4"
+    },
+    {
+        "topic": "Arrays",
+        "question": "Stock Buy and Sell",
+        "difficulty": "Easy",
+        "link": "leetcode.com/problems/best-time-to-buy-and-sell-stock/",
+        "id": "a57a54a5-b2d8-43ea-897b-0fa90718021e"
+    },
+    {
+        "topic": "Arrays Part-II",
+        "question": "Rotate Matrix",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/rotate-image/",
+        "id": "70aaf6cd-c60a-44b2-8faa-e737c414ea98"
+    },
+    {
+        "topic": "Arrays Part-II",
+        "question": "Merge Overlapping Subintervals",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/merge-intervals/",
+        "id": "2e5b6f13-3436-407b-b6f4-bfa78f30fd90"
+    },
+    {
+        "topic": "Arrays Part-II",
+        "question": "Merge two sorted arrays without extra space",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/merge-sorted-array/",
+        "id": "df4df583-b923-464d-a431-c5d7aa49ec1b"
+    },
+    {
+        "topic": "Arrays Part-II",
+        "question": "Find the duplicate in an array of N+1 integers",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/find-the-duplicate-number/",
+        "id": "6ffa7192-10c0-4f84-913e-ae9b60546e78"
+    },
+    {
+        "topic": "Arrays Part-II",
+        "question": "Repeat and Missing Number",
+        "difficulty": "Hard",
+        "link": "interviewbit.com/problems/repeat-and-missing-number-array/",
+        "id": "11c14647-ea8f-4a3a-8f46-5382df90da3c"
+    },
+    {
+        "topic": "Arrays Part-II",
+        "question": "Inversion of Array (Pre-req: Merge Sort)",
+        "difficulty": "Hard",
+        "link": "geeksforgeeks.org/counting-inversions/",
+        "id": "627b3f54-4550-452c-9be1-7b6b2bd4a18b"
+    },
+    {
+        "topic": "Arrays Part-III",
+        "question": "Search in a 2D matrix",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/search-a-2d-matrix/",
+        "id": "9678d383-f81c-4ce8-a844-be7f3228deee"
+    },
+    {
+        "topic": "Arrays Part-III",
+        "question": "Pow(x, n)",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/powx-n/",
+        "id": "c808a02f-545a-4bd4-9426-d23c5698e53d"
+    },
+    {
+        "topic": "Arrays Part-III",
+        "question": "Majority Element (>n/2 times)",
+        "difficulty": "Easy",
+        "link": "leetcode.com/problems/majority-element/",
+        "id": "bd24dac2-7e19-4313-abee-4ddc005a9dfe"
+    },
+    {
+        "topic": "Arrays Part-III",
+        "question": "Majority Element (n/3 times)",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/majority-element-ii/",
+        "id": "ef5b264b-15e2-44bf-bf06-b5dba5b54ca5"
+    },
+    {
+        "topic": "Arrays Part-III",
+        "question": "Grid Unique Paths",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/unique-paths/",
+        "id": "9694167f-a97a-4e4f-a2ef-c98443534b49"
+    },
+    {
+        "topic": "Arrays Part-III",
+        "question": "Reverse Pairs (Leetcode)",
+        "difficulty": "Hard",
+        "link": "leetcode.com/problems/reverse-pairs/",
+        "id": "57deb23f-1020-4a79-8d1e-49b2fe279ee5"
+    },
+    {
+        "topic": "Arrays Part-IV",
+        "question": "2Sum Problem",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/two-sum/",
+        "id": "3a54a765-11df-4e43-ad50-ada398f5ac9d"
+    },
+    {
+        "topic": "Arrays Part-IV",
+        "question": "4-Sum Problem",
+        "difficulty": "Hard",
+        "link": "leetcode.com/problems/4sum/",
+        "id": "eb4050cc-4103-49e6-b236-6ff5c9598bfd"
+    },
+    {
+        "topic": "Arrays Part-IV",
+        "question": "Longest Consecutive Sequence",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/longest-consecutive-sequence/",
+        "id": "3a9a2fb8-db0d-4286-8949-283d6bfac270"
+    },
+    {
+        "topic": "Arrays Part-IV",
+        "question": "Largest Subarray with K sum",
+        "difficulty": "Medium",
+        "link": "practice.geeksforgeeks.org/problems/largest-subarray-with-0-sum/1",
+        "id": "eb44c9d8-4c93-41f8-ac60-d4e52fb6ac30"
+    },
+    {
+        "topic": "Arrays Part-IV",
+        "question": "Count number of subarrays with given xor K",
+        "difficulty": "Hard",
+        "link": "interviewbit.com/problems/subarray-with-given-xor/",
+        "id": "8cc4a861-1197-4192-a80d-6380170cbc15"
+    },
+    {
+        "topic": "Arrays Part-IV",
+        "question": "Longest Substring without repeat",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/longest-substring-without-repeating-characters/",
+        "id": "cedb29fe-db05-43e1-808b-8fcb9cf671eb"
+    },
+    {
+        "topic": "Linked List",
+        "question": "Reverse a LinkedList",
+        "difficulty": "Easy",
+        "link": "leetcode.com/problems/reverse-linked-list/",
+        "id": "967d4289-514b-4143-ac88-1d4ae9d420a5"
+    },
+    {
+        "topic": "Linked List",
+        "question": "Find the middle of LinkedList",
+        "difficulty": "Easy",
+        "link": "leetcode.com/problems/middle-of-the-linked-list/",
+        "id": "edd973a1-b483-4f2d-afd4-659ac8d007c0"
+    },
+    {
+        "topic": "Linked List",
+        "question": "Sort a linked list of 0s, 1s and 2s",
+        "difficulty": "Medium",
+        "link": "geeksforgeeks.org/problems/given-a-linked-list-of-0s-1s-and-2s-sort-it/1",
+        "id": "1c30a735-4480-4ce7-964a-fc90eb9a0619"
+    },
+    {
+        "topic": "Linked List",
+        "question": "Merge two sorted Linked List",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/merge-two-sorted-lists/",
+        "id": "563ca35d-a66a-4944-b7b2-77b653df6e29"
+    },
+    {
+        "topic": "Linked List",
+        "question": "Remove N-th node from back of LinkedList",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/remove-nth-node-from-end-of-list/",
+        "id": "834b5ac2-1f33-422d-a192-758b308ac95a"
+    },
+    {
+        "topic": "Linked List",
+        "question": "Add two numbers as LinkedList",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/add-two-numbers/",
+        "id": "ff5397e9-e19b-4725-bae1-6e7c07ed5616"
+    },
+    {
+        "topic": "Linked List",
+        "question": "Delete a given Node when a node is given",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/delete-node-in-a-linked-list/",
+        "id": "1b4b6ce9-ac67-44c4-b9e8-3e4d63dfb33c"
+    },
+    {
+        "topic": "Linked List Part-II",
+        "question": "Find intersection point of Y LinkedList",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/intersection-of-two-linked-lists/",
+        "id": "de5a57db-7e37-479b-9262-9795989a01b0"
+    },
+    {
+        "topic": "Linked List Part-II",
+        "question": "Detect a cycle in Linked List",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/linked-list-cycle/",
+        "id": "56e0127b-35d1-4d80-a3ab-98db94833e03"
+    },
+    {
+        "topic": "Linked List Part-II",
+        "question": "Reverse a LinkedList in groups of size k",
+        "difficulty": "Hard",
+        "link": "leetcode.com/problems/reverse-nodes-in-k-group/",
+        "id": "853f2c0d-592d-40b0-a514-0e537c02dd05"
+    },
+    {
+        "topic": "Linked List Part-II",
+        "question": "Check if a LinkedList is palindrome or not",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/palindrome-linked-list/",
+        "id": "4b9adf30-34ec-42e9-9f30-b9dd5d49dd1c"
+    },
+    {
+        "topic": "Linked List Part-II",
+        "question": "Find the starting point of the Loop of LinkedList",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/linked-list-cycle-ii/",
+        "id": "f3f478ce-8b42-4e87-b31c-303befa951a0"
+    },
+    {
+        "topic": "Linked List Part-II",
+        "question": "Flattening of a LinkedList",
+        "difficulty": "Hard",
+        "link": "practice.geeksforgeeks.org/problems/flattening-a-linked-list/1",
+        "id": "0ec121d6-e0b2-495b-b080-afa63964e346"
+    },
+    {
+        "topic": "Linked List and Arrays",
+        "question": "Rotate a LinkedList",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/rotate-list/",
+        "id": "d39c5482-7743-45c5-8b98-c27fef28a6a6"
+    },
+    {
+        "topic": "Linked List and Arrays",
+        "question": "Clone a Linked List with random and next pointer",
+        "difficulty": "Hard",
+        "link": "leetcode.com/problems/copy-list-with-random-pointer/",
+        "id": "f37b3d7d-aa3c-4ba4-b2d4-f3a254187177"
+    },
+    {
+        "topic": "Linked List and Arrays",
+        "question": "3 sum",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/3sum/",
+        "id": "f676c9f9-edcd-453a-b732-4e83a6d25f60"
+    },
+    {
+        "topic": "Linked List and Arrays",
+        "question": "Trapping Rainwater",
+        "difficulty": "Hard",
+        "link": "leetcode.com/problems/trapping-rain-water/",
+        "id": "740a1830-f49e-45aa-8cc8-b43a5e373710"
+    },
+    {
+        "topic": "Linked List and Arrays",
+        "question": "Remove Duplicate from Sorted array",
+        "difficulty": "Easy",
+        "link": "leetcode.com/problems/remove-duplicates-from-sorted-array/",
+        "id": "65887844-410a-436b-a518-82e26a2a47e7"
+    },
+    {
+        "topic": "Linked List and Arrays",
+        "question": "Max consecutive ones",
+        "difficulty": "Easy",
+        "link": "leetcode.com/problems/max-consecutive-ones/",
+        "id": "86238066-0dc7-494f-a8af-e7808a2805ae"
+    },
+    {
+        "topic": "Greedy Algorithm",
+        "question": "N meetings in one room",
+        "difficulty": "Medium",
+        "link": "practice.geeksforgeeks.org/problems/n-meetings-in-one-room-1587115620/1",
+        "id": "aa3d7b17-f8c6-4ede-9af4-279945120eec"
+    },
+    {
+        "topic": "Greedy Algorithm",
+        "question": "Minimum number of platforms required for a railway",
+        "difficulty": "Medium",
+        "link": "practice.geeksforgeeks.org/problems/minimum-platforms-1587115620/1",
+        "id": "21fca34c-fa2f-499e-b71f-cb6a2632b019"
+    },
+    {
+        "topic": "Greedy Algorithm",
+        "question": "Job sequencing Problem",
+        "difficulty": "Medium",
+        "link": "practice.geeksforgeeks.org/problems/job-sequencing-problem-1587115620/1",
+        "id": "6e907b0e-421d-428d-bd04-94cbe285be92"
+    },
+    {
+        "topic": "Greedy Algorithm",
+        "question": "Fractional Knapsack Problem",
+        "difficulty": "Medium",
+        "link": "practice.geeksforgeeks.org/problems/fractional-knapsack-1587115620/1",
+        "id": "8ff69a00-a879-4298-8113-c657ab7582bc"
+    },
+    {
+        "topic": "Greedy Algorithm",
+        "question": "Greedy algorithm to find minimum number of coins",
+        "difficulty": "Medium",
+        "link": "practice.geeksforgeeks.org/problems/coin-piles/0",
+        "id": "2e7a2aea-a86a-46f5-af11-6d070b2d5693"
+    },
+    {
+        "topic": "Greedy Algorithm",
+        "question": "Assign Cookies",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/assign-cookies/",
+        "id": "eb793959-adc1-4c69-9c83-56c0177636af"
+    },
+    {
+        "topic": "Recursion",
+        "question": "Subset Sums",
+        "difficulty": "Medium",
+        "link": "practice.geeksforgeeks.org/problems/subset-sums2234/1",
+        "id": "ba4ac3dc-6e07-493d-8f59-432c69149071"
+    },
+    {
+        "topic": "Recursion",
+        "question": "Subset-II",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/subsets-ii/",
+        "id": "f00e9b91-e9b1-44a0-a55c-6c9e35511021"
+    },
+    {
+        "topic": "Recursion",
+        "question": "Combination sum-1",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/combination-sum/",
+        "id": "117208f7-09af-4304-892d-ef4093b3e42f"
+    },
+    {
+        "topic": "Recursion",
+        "question": "Combination sum-2",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/combination-sum-ii/",
+        "id": "897f8301-5cf6-4b8e-8280-f587120151d4"
+    },
+    {
+        "topic": "Recursion",
+        "question": "Palindrome Partitioning",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/palindrome-partitioning/",
+        "id": "e733d5f4-fbc8-4dc8-9ad7-ae2302f3958e"
+    },
+    {
+        "topic": "Recursion",
+        "question": "K-th permutation Sequence",
+        "difficulty": "Hard",
+        "link": "leetcode.com/problems/permutation-sequence/",
+        "id": "26216d49-5b31-40b0-8fd9-d9f781c67e56"
+    },
+    {
+        "topic": "Recursion and Backtracking",
+        "question": "Print all permutations of a string/array",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/permutations/",
+        "id": "ae7bc6cb-7de0-4ee9-a2fb-da6ef377b4a4"
+    },
+    {
+        "topic": "Recursion and Backtracking",
+        "question": "N queens Problem",
+        "difficulty": "Hard",
+        "link": "leetcode.com/problems/n-queens/",
+        "id": "a54d82c0-8111-49de-a821-1c0e16f6786f"
+    },
+    {
+        "topic": "Recursion and Backtracking",
+        "question": "Sudoko Solver",
+        "difficulty": "Hard",
+        "link": "leetcode.com/problems/sudoku-solver/",
+        "id": "1a934c89-97df-4cd6-90c5-8480a216f784"
+    },
+    {
+        "topic": "Recursion and Backtracking",
+        "question": "M Coloring Problem",
+        "difficulty": "Hard",
+        "link": "practice.geeksforgeeks.org/problems/m-coloring-problem-1587115620/1",
+        "id": "c39cab6c-58b1-4ba7-ac85-1995e01d4ae5"
+    },
+    {
+        "topic": "Recursion and Backtracking",
+        "question": "Rat in a Maze",
+        "difficulty": "Hard",
+        "link": "practice.geeksforgeeks.org/problems/rat-in-a-maze-problem/1",
+        "id": "e78cbb0b-983f-46ee-8931-f4624c2e18f4"
+    },
+    {
+        "topic": "Recursion and Backtracking",
+        "question": "Word Break (print all ways)",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/word-break-ii/",
+        "id": "b037c866-d1c5-4cc4-881d-53a3c5966668"
+    },
+    {
+        "topic": "Binary Search",
+        "question": "The N-th root of an integer",
+        "difficulty": "Easy",
+        "link": "geeksforgeeks.org/n-th-root-number/",
+        "id": "53ba4494-99a0-4b9f-aa5d-b8479aeeba6b"
+    },
+    {
+        "topic": "Binary Search",
+        "question": "Matrix Median",
+        "difficulty": "Hard",
+        "link": "interviewbit.com/problems/matrix-median/",
+        "id": "31a0e6d7-8b6c-42bd-a137-3a162b3f5f3c"
+    },
+    {
+        "topic": "Binary Search",
+        "question": "Find the element that appears once in a sorted array",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/single-element-in-a-sorted-array/",
+        "id": "71b555b0-0602-4a75-8df4-14cb758db51e"
+    },
+    {
+        "topic": "Binary Search",
+        "question": "Search element in a sorted and rotated array",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/search-in-rotated-sorted-array/",
+        "id": "73990d65-23d2-443a-abc1-bfe8c2716733"
+    },
+    {
+        "topic": "Binary Search",
+        "question": "Median of 2 sorted arrays",
+        "difficulty": "Hard",
+        "link": "leetcode.com/problems/median-of-two-sorted-arrays/",
+        "id": "cdeb65ce-f0b6-4272-b16d-85040129de10"
+    },
+    {
+        "topic": "Binary Search",
+        "question": "K-th element of two sorted arrays",
+        "difficulty": "Medium",
+        "link": "practice.geeksforgeeks.org/problems/k-th-element-of-two-sorted-array1317/1",
+        "id": "feb0d204-5ba5-4a35-baef-0b20288bcebf"
+    },
+    {
+        "topic": "Binary Search",
+        "question": "Allocate Minimum Number of Pages",
+        "difficulty": "Hard",
+        "link": "practice.geeksforgeeks.org/problems/allocate-minimum-number-of-pages0937/1",
+        "id": "9614a61e-de1b-47ab-8bb2-50d8f4a3a26b"
+    },
+    {
+        "topic": "Binary Search",
+        "question": "Aggressive Cows",
+        "difficulty": "Hard",
+        "link": "spoj.com/problems/AGGRCOW/",
+        "id": "68a0df8a-ae87-4441-8f68-49f39bc4dc0f"
+    },
+    {
+        "topic": "Heaps",
+        "question": "Max heap, Min Heap Implementation",
+        "difficulty": "Medium",
+        "link": "geeksforgeeks.org/building-heap-from-array/",
+        "id": "d727d2aa-43ee-476c-bc61-7a0839e54aeb"
+    },
+    {
+        "topic": "Heaps",
+        "question": "Kth Largest Element",
+        "difficulty": "Easy",
+        "link": "leetcode.com/problems/kth-largest-element-in-an-array/",
+        "id": "fe17f3dc-1bfd-49d3-87e5-9abcb73f2662"
+    },
+    {
+        "topic": "Heaps",
+        "question": "Maximum Sum Combination",
+        "difficulty": "Medium",
+        "link": "interviewbit.com/problems/maximum-sum-combinations/",
+        "id": "e5c48819-e09a-43dc-9464-b50e1d710ceb"
+    },
+    {
+        "topic": "Heaps",
+        "question": "Find Median from Data Stream",
+        "difficulty": "Hard",
+        "link": "leetcode.com/problems/find-median-from-data-stream/",
+        "id": "ed6ee6ae-b124-43c7-8e55-71f5349bd549"
+    },
+    {
+        "topic": "Heaps",
+        "question": "Merge K sorted arrays",
+        "difficulty": "Medium",
+        "link": "practice.geeksforgeeks.org/problems/merge-k-sorted-arrays/1",
+        "id": "82f82e18-cf54-4720-aa1c-59d1aac29214"
+    },
+    {
+        "topic": "Heaps",
+        "question": "K most frequent elements",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/top-k-frequent-elements/",
+        "id": "389a8a03-44a5-4bda-8e2c-e97a20e1b3e9"
+    },
+    {
+        "topic": "Stack and Queue",
+        "question": "Implement Stack using Arrays",
+        "difficulty": "Easy",
+        "link": "geeksforgeeks.org/stack-data-structure-introduction-program/",
+        "id": "fa94a821-b247-4347-bd3a-19c2cf1050c7"
+    },
+    {
+        "topic": "Stack and Queue",
+        "question": "Implement Queue using Arrays",
+        "difficulty": "Easy",
+        "link": "geeksforgeeks.org/queue-set-1introduction-and-array-implementation/",
+        "id": "93a8d24a-6812-4c31-9f28-3130598e1a12"
+    },
+    {
+        "topic": "Stack and Queue",
+        "question": "Implement Stack using Queue",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/implement-stack-using-queues/",
+        "id": "04c9223d-2789-40a8-9d39-52d3630b39dd"
+    },
+    {
+        "topic": "Stack and Queue",
+        "question": "Implement Queue using Stack",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/implement-queue-using-stacks/",
+        "id": "f7c9ea13-4ede-4e79-8894-2607c3303cb6"
+    },
+    {
+        "topic": "Stack and Queue",
+        "question": "Check for balanced parentheses",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/valid-parentheses/",
+        "id": "d8f327a8-7200-4257-b595-384405e48417"
+    },
+    {
+        "topic": "Stack and Queue",
+        "question": "Next Greater Element",
+        "difficulty": "Easy",
+        "link": "leetcode.com/problems/next-greater-element-i/",
+        "id": "649853c3-d875-477b-ab0c-5af26ca5c300"
+    },
+    {
+        "topic": "Stack and Queue",
+        "question": "Sort a Stack",
+        "difficulty": "Easy",
+        "link": "practice.geeksforgeeks.org/problems/sort-a-stack/1",
+        "id": "0320c63d-cc9e-4f0c-9702-9b6545636fd2"
+    },
+    {
+        "topic": "Stack and Queue Part-II",
+        "question": "Next Smaller Element",
+        "difficulty": "Easy",
+        "link": "interviewbit.com/problems/nearest-smaller-element/",
+        "id": "7ec65901-0440-4753-b754-5cf77eae20a1"
+    },
+    {
+        "topic": "Stack and Queue Part-II",
+        "question": "LRU cache",
+        "difficulty": "Hard",
+        "link": "leetcode.com/problems/lru-cache/",
+        "id": "45a6afb0-1061-4e7d-9cc1-b18bc2599566"
+    },
+    {
+        "topic": "Stack and Queue Part-II",
+        "question": "LFU cache",
+        "difficulty": "Hard",
+        "link": "leetcode.com/problems/lfu-cache/",
+        "id": "a7691ab4-1440-4471-9c42-6b6be02fc9e3"
+    },
+    {
+        "topic": "Stack and Queue Part-II",
+        "question": "Largest rectangle in a histogram",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/largest-rectangle-in-histogram/",
+        "id": "9811872f-480b-4b57-8ea9-faf56689af71"
+    },
+    {
+        "topic": "Stack and Queue Part-II",
+        "question": "Sliding Window maximum",
+        "difficulty": "Hard",
+        "link": "leetcode.com/problems/sliding-window-maximum/",
+        "id": "150829bc-b440-45ba-a128-eb58395fc183"
+    },
+    {
+        "topic": "Stack and Queue Part-II",
+        "question": "Implement Min Stack",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/min-stack/",
+        "id": "21c6c2f8-e11e-4099-93a3-151e743e225c"
+    },
+    {
+        "topic": "Stack and Queue Part-II",
+        "question": "Rotten Orange (Using BFS)",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/rotting-oranges/",
+        "id": "b4c02548-a76e-4a81-a067-da1de494bcbb"
+    },
+    {
+        "topic": "Stack and Queue Part-II",
+        "question": "Stock span problem",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/online-stock-span/",
+        "id": "5bf35db1-987c-4943-b914-eabe795a6f96"
+    },
+    {
+        "topic": "Stack and Queue Part-II",
+        "question": "Find the maximum of minimums of every window size",
+        "difficulty": "Medium",
+        "link": "geeksforgeeks.org/find-the-maximum-of-minimums-for-every-window-size-in-a-given-array/",
+        "id": "eefd2b00-f746-4d35-810e-be2fd19d1ec8"
+    },
+    {
+        "topic": "Stack and Queue Part-II",
+        "question": "The Celebrity Problem",
+        "difficulty": "Hard",
+        "link": "leetcode.com/problems/find-the-celebrity/",
+        "id": "9f6d3f12-8df3-4518-8750-d8f54b1b16ae"
+    },
+    {
+        "topic": "String",
+        "question": "Reverse Words in a String",
+        "difficulty": "Easy",
+        "link": "leetcode.com/problems/reverse-words-in-a-string/",
+        "id": "4724dbbb-cdf3-49dd-b030-1453d27b52a5"
+    },
+    {
+        "topic": "String",
+        "question": "Longest Palindrome in a string",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/longest-palindromic-substring/",
+        "id": "78d8bfc4-00d6-4166-b3c8-cad6c065bfd7"
+    },
+    {
+        "topic": "String",
+        "question": "Roman Number to Integer and vice versa",
+        "difficulty": "Easy",
+        "link": "leetcode.com/problems/roman-to-integer/",
+        "id": "4844c3ba-2dd3-47bc-aad4-50153b0c8ed4"
+    },
+    {
+        "topic": "String",
+        "question": "Implement ATOI/STRSTR",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/string-to-integer-atoi/",
+        "id": "c0ff9eec-be31-4b51-a6ad-82e7414077d6"
+    },
+    {
+        "topic": "String",
+        "question": "Longest Common Prefix",
+        "difficulty": "Easy",
+        "link": "leetcode.com/problems/longest-common-prefix/",
+        "id": "6a4b83f4-ea8e-4598-ae2f-d8679e3afc5e"
+    },
+    {
+        "topic": "String",
+        "question": "Rabin Karp",
+        "difficulty": "Hard",
+        "link": "leetcode.com/problems/repeated-string-match/",
+        "id": "1121f622-6be4-4cf2-aff8-ca778acf5276"
+    },
+    {
+        "topic": "String Part-II",
+        "question": "Z-Function",
+        "difficulty": "Easy",
+        "link": "leetcode.com/problems/implement-strstr/",
+        "id": "6741db7e-e9cb-4af5-819f-920668d689de"
+    },
+    {
+        "topic": "String Part-II",
+        "question": "KMP algo / LPS(pi) array",
+        "difficulty": "Hard",
+        "link": "leetcode.com/problems/implement-strstr/",
+        "id": "2415d281-fd5d-4e6c-8b8d-26da32c435ee"
+    },
+    {
+        "topic": "String Part-II",
+        "question": "Minimum characters needed to be inserted in the beginning to make it palindromic",
+        "difficulty": "Hard",
+        "link": "interviewbit.com/problems/minimum-characters-required-to-make-a-string-palindromic/",
+        "id": "3bf9145a-01b6-4da9-bb04-d583c3990b16"
+    },
+    {
+        "topic": "String Part-II",
+        "question": "Check for Anagrams",
+        "difficulty": "Easy",
+        "link": "leetcode.com/problems/valid-anagram/",
+        "id": "2c1c0985-f83b-440e-b503-eb39f82b6d58"
+    },
+    {
+        "topic": "String Part-II",
+        "question": "Count and say",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/count-and-say/",
+        "id": "f035e89f-3699-4715-8fe5-3eede9a0cd1f"
+    },
+    {
+        "topic": "String Part-II",
+        "question": "Compare version numbers",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/compare-version-numbers/",
+        "id": "999f4bf8-4e42-405e-b420-4d2dd52a095d"
+    },
+    {
+        "topic": "Binary Tree",
+        "question": "Inorder Traversal",
+        "difficulty": "Easy",
+        "link": "leetcode.com/problems/binary-tree-inorder-traversal/",
+        "id": "9aff48f0-6ea6-4d60-92d6-ded4fd31df5f"
+    },
+    {
+        "topic": "Binary Tree",
+        "question": "Preorder Traversal",
+        "difficulty": "Easy",
+        "link": "leetcode.com/problems/binary-tree-preorder-traversal/",
+        "id": "49bb9f01-d251-4630-a1c4-52fe1f4cd0f6"
+    },
+    {
+        "topic": "Binary Tree",
+        "question": "Postorder Traversal",
+        "difficulty": "Easy",
+        "link": "leetcode.com/problems/binary-tree-postorder-traversal/",
+        "id": "cfae2f90-633f-423a-baa8-b99d021c0de2"
+    },
+    {
+        "topic": "Binary Tree",
+        "question": "Morris Inorder Traversal",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/binary-tree-inorder-traversal/",
+        "id": "82ca531d-725a-4014-b763-e4fb70b7069e"
+    },
+    {
+        "topic": "Binary Tree",
+        "question": "Morris Preorder Traversal",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/binary-tree-preorder-traversal/",
+        "id": "b3721fa4-d164-496d-952f-a81987b7e54d"
+    },
+    {
+        "topic": "Binary Tree",
+        "question": "LeftView Of Binary Tree",
+        "difficulty": "Easy",
+        "link": "practice.geeksforgeeks.org/problems/left-view-of-binary-tree/1",
+        "id": "725c74d0-209c-408b-a386-0447f34778f7"
+    },
+    {
+        "topic": "Binary Tree",
+        "question": "Bottom View of Binary Tree",
+        "difficulty": "Medium",
+        "link": "practice.geeksforgeeks.org/problems/bottom-view-of-binary-tree/1",
+        "id": "3f307471-388e-4d25-b439-2aa20705b7b5"
+    },
+    {
+        "topic": "Binary Tree",
+        "question": "Top View of Binary Tree",
+        "difficulty": "Easy",
+        "link": "practice.geeksforgeeks.org/problems/top-view-of-binary-tree/1",
+        "id": "cbf8135f-16c8-4a02-9214-1cf979b20f18"
+    },
+    {
+        "topic": "Binary Tree",
+        "question": "Preorder inorder postorder in a single traversal",
+        "difficulty": "Medium",
+        "link": "codingninjas.com/codestudio/problems/981269",
+        "id": "dcf72219-202c-4f80-b479-2d44374c93f0"
+    },
+    {
+        "topic": "Binary Tree",
+        "question": "Vertical order traversal",
+        "difficulty": "Easy",
+        "link": "leetcode.com/problems/vertical-order-traversal-of-a-binary-tree/",
+        "id": "9628195c-75cd-4a00-ad4e-966155c85d9d"
+    },
+    {
+        "topic": "Binary Tree",
+        "question": "Root to Node Path in Binary Tree",
+        "difficulty": "Medium",
+        "link": "interviewbit.com/problems/path-to-given-node/",
+        "id": "b8c79995-9e03-485d-8fc0-c4a784ad0590"
+    },
+    {
+        "topic": "Binary Tree",
+        "question": "Max width of a Binary Tree",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/maximum-width-of-binary-tree/",
+        "id": "c570f5d1-472e-42aa-b931-15e59b102d8f"
+    },
+    {
+        "topic": "Binary Tree part-II",
+        "question": "Level order Traversal / Level order traversal in spiral form",
+        "difficulty": "Easy",
+        "link": "leetcode.com/problems/binary-tree-level-order-traversal/",
+        "id": "76d42e0c-bcb6-41d2-9632-42ebe5b2b54f"
+    },
+    {
+        "topic": "Binary Tree part-II",
+        "question": "Height of a Binary Tree",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/maximum-depth-of-binary-tree/",
+        "id": "6513bb13-54e5-4a4e-b7fc-ae374d558000"
+    },
+    {
+        "topic": "Binary Tree part-II",
+        "question": "Diameter of Binary Tree",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/diameter-of-binary-tree/",
+        "id": "93b60885-0cb3-408d-a4d3-0a68837e52df"
+    },
+    {
+        "topic": "Binary Tree part-II",
+        "question": "Check if the Binary tree is height-balanced or not",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/balanced-binary-tree/",
+        "id": "d28da275-4c69-4b77-8098-324d47a01490"
+    },
+    {
+        "topic": "Binary Tree part-II",
+        "question": "LCA in Binary Tree",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/",
+        "id": "ee7c8977-0f2c-4317-89fe-35ec952b23f7"
+    },
+    {
+        "topic": "Binary Tree part-II",
+        "question": "Check if two trees are identical or not",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/same-tree/",
+        "id": "b2b3849d-4e67-49c1-86ba-f462168439b0"
+    },
+    {
+        "topic": "Binary Tree part-II",
+        "question": "Zig Zag Traversal of Binary Tree",
+        "difficulty": "Easy",
+        "link": "leetcode.com/problems/binary-tree-zigzag-level-order-traversal/",
+        "id": "c1bb8127-fbcb-485d-97c5-4415c0404d00"
+    },
+    {
+        "topic": "Binary Tree part-II",
+        "question": "Boundary Traversal of Binary Tree",
+        "difficulty": "Medium",
+        "link": "practice.geeksforgeeks.org/problems/boundary-traversal-of-binary-tree/1",
+        "id": "842e1419-03c5-4294-a8e6-e68c7cf91553"
+    },
+    {
+        "topic": "Binary Tree part-III",
+        "question": "Maximum path sum",
+        "difficulty": "Hard",
+        "link": "leetcode.com/problems/binary-tree-maximum-path-sum/",
+        "id": "2184ca59-54ea-4090-b38f-58953e719a1a"
+    },
+    {
+        "topic": "Binary Tree part-III",
+        "question": "Construct Binary Tree from inorder and preorder",
+        "difficulty": "Hard",
+        "link": "leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/",
+        "id": "36929279-5206-492b-8f79-26864598c2e7"
+    },
+    {
+        "topic": "Binary Tree part-III",
+        "question": "Construct Binary Tree from Inorder and Postorder",
+        "difficulty": "Hard",
+        "link": "leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/",
+        "id": "feca02a5-8868-4389-9749-5757848a0655"
+    },
+    {
+        "topic": "Binary Tree part-III",
+        "question": "Symmetric Binary Tree",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/symmetric-tree/",
+        "id": "09457377-ae91-4a80-85d0-6a6c88dc81ab"
+    },
+    {
+        "topic": "Binary Tree part-III",
+        "question": "Flatten Binary Tree to LinkedList",
+        "difficulty": "Hard",
+        "link": "leetcode.com/problems/flatten-binary-tree-to-linked-list/",
+        "id": "e56d1f74-191f-444a-995b-ff266f05cd1e"
+    },
+    {
+        "topic": "Binary Tree part-III",
+        "question": "Check if Binary Tree is the mirror of itself or not",
+        "difficulty": "Medium",
+        "link": "practice.geeksforgeeks.org/problems/mirror-tree/1",
+        "id": "d995209a-cee4-457c-8d4d-595e3328e54d"
+    },
+    {
+        "topic": "Binary Tree part-III",
+        "question": "Check for Children Sum Property",
+        "difficulty": "Hard",
+        "link": "practice.geeksforgeeks.org/problems/children-sum-parent/1",
+        "id": "0553d410-7bbf-44cf-9f4c-d3e930cbe36d"
+    },
+    {
+        "topic": "Binary Search Tree",
+        "question": "Populate Next Right pointers of Tree",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/populating-next-right-pointers-in-each-node/",
+        "id": "1d16a21d-c8cc-4586-80c7-e2b13879ad38"
+    },
+    {
+        "topic": "Binary Search Tree",
+        "question": "Search given Key in BST",
+        "difficulty": "Easy",
+        "link": "leetcode.com/problems/search-in-a-binary-search-tree/",
+        "id": "c65892e8-dda2-48ec-b52d-b345ecaab7e3"
+    },
+    {
+        "topic": "Binary Search Tree",
+        "question": "Construct BST from given keys",
+        "difficulty": "Hard",
+        "link": "leetcode.com/problems/convert-sorted-array-to-binary-search-tree/",
+        "id": "9412edc6-8a40-4c85-a8bb-1b150a968e58"
+    },
+    {
+        "topic": "Binary Search Tree",
+        "question": "Construct a BST from a preorder traversal",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/construct-binary-search-tree-from-preorder-traversal/",
+        "id": "68cd1484-1c51-4e22-80ae-7d98caf20e0f"
+    },
+    {
+        "topic": "Binary Search Tree",
+        "question": "Check is a BT is BST or not",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/validate-binary-search-tree/",
+        "id": "87bcf37a-3b90-462d-8861-238747cbee05"
+    },
+    {
+        "topic": "Binary Search Tree",
+        "question": "Find LCA of two nodes in BST",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/",
+        "id": "9d7f3b2d-6b80-4043-ba01-88b79093922b"
+    },
+    {
+        "topic": "Binary Search Tree",
+        "question": "Find the inorder predecessor/successor of a given Key in BST",
+        "difficulty": "Medium",
+        "link": "practice.geeksforgeeks.org/problems/predecessor-and-successor/1",
+        "id": "5aed7dea-ccd4-4b49-a83d-7c8dd434b122"
+    },
+    {
+        "topic": "Binary Search Tree Part-II",
+        "question": "Floor in a BST",
+        "difficulty": "Easy",
+        "link": "geeksforgeeks.org/floor-in-binary-search-tree-bst/",
+        "id": "a91fb8bf-450f-4315-8d7c-e4ef31eb272a"
+    },
+    {
+        "topic": "Binary Search Tree Part-II",
+        "question": "Ceil in a BST",
+        "difficulty": "Easy",
+        "link": "geeksforgeeks.org/ceiling-in-a-binary-search-tree/",
+        "id": "2d5583b7-da24-443d-b662-efa551b2cce8"
+    },
+    {
+        "topic": "Binary Search Tree Part-II",
+        "question": "Find K-th smallest element in BST",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/kth-smallest-element-in-a-bst/",
+        "id": "3d2c8dd3-88c3-4007-b64e-1d46afd1e581"
+    },
+    {
+        "topic": "Binary Search Tree Part-II",
+        "question": "Find K-th largest element in BST",
+        "difficulty": "Medium",
+        "link": "practice.geeksforgeeks.org/problems/kth-largest-element-in-bst/1",
+        "id": "41a2383d-a3b9-4735-8a4d-4ab3034df4d3"
+    },
+    {
+        "topic": "Binary Search Tree Part-II",
+        "question": "Find a pair with a given sum in BST",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/two-sum-iv-input-is-a-bst/",
+        "id": "8599865f-f83c-418e-81c9-aac8edd9c71e"
+    },
+    {
+        "topic": "Binary Search Tree Part-II",
+        "question": "BST iterator",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/binary-search-tree-iterator/",
+        "id": "f81b806e-2169-4a48-90ee-5b42bc4f3185"
+    },
+    {
+        "topic": "Binary Search Tree Part-II",
+        "question": "Size of the largest BST in a Binary Tree",
+        "difficulty": "Medium",
+        "link": "practice.geeksforgeeks.org/problems/largest-bst/1",
+        "id": "2cd818f3-2a93-4f3f-9390-cf2cd9052b15"
+    },
+    {
+        "topic": "Binary Search Tree Part-II",
+        "question": "Serialize and deserialize Binary Tree",
+        "difficulty": "Hard",
+        "link": "leetcode.com/problems/serialize-and-deserialize-binary-tree/",
+        "id": "6c790b09-ff22-4fc3-9b28-06a1beeaf421"
+    },
+    {
+        "topic": "Binary Trees[Miscellaneous]",
+        "question": "Binary Tree to Double Linked List",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/flatten-binary-tree-to-linked-list/",
+        "id": "dc71d03f-83f0-4ad3-9347-5345284e9958"
+    },
+    {
+        "topic": "Binary Trees[Miscellaneous]",
+        "question": "Find median in a stream of running integers",
+        "difficulty": "Hard",
+        "link": "leetcode.com/problems/find-median-from-data-stream/",
+        "id": "3e2230a5-27de-47ee-8502-289b68c7c7d8"
+    },
+    {
+        "topic": "Binary Trees[Miscellaneous]",
+        "question": "K-th largest element in a stream",
+        "difficulty": "Easy",
+        "link": "leetcode.com/problems/kth-largest-element-in-a-stream/",
+        "id": "9277f4ce-6c6b-46da-a386-1b9c4a03feba"
+    },
+    {
+        "topic": "Binary Trees[Miscellaneous]",
+        "question": "Distinct numbers in Window",
+        "difficulty": "Medium",
+        "link": "interviewbit.com/problems/distinct-numbers-in-window/",
+        "id": "c896512e-b099-4515-840b-ce44238ab3aa"
+    },
+    {
+        "topic": "Binary Trees[Miscellaneous]",
+        "question": "K-th largest element in an unsorted array",
+        "difficulty": "Easy",
+        "link": "leetcode.com/problems/kth-largest-element-in-an-array/",
+        "id": "8657b29f-5427-494b-bfd5-c57d670e5b57"
+    },
+    {
+        "topic": "Binary Trees[Miscellaneous]",
+        "question": "Flood-fill Algorithm",
+        "difficulty": "Hard",
+        "link": "leetcode.com/problems/flood-fill/",
+        "id": "00743731-a434-4d32-ac7f-319e1a6a2dcd"
+    },
+    {
+        "topic": "Graph",
+        "question": "Clone a graph",
+        "difficulty": "Hard",
+        "link": "leetcode.com/problems/clone-graph/",
+        "id": "d8dee05c-ad07-408e-8946-560b54ddaaa3"
+    },
+    {
+        "topic": "Graph",
+        "question": "DFS",
+        "difficulty": "Hard",
+        "link": "practice.geeksforgeeks.org/problems/depth-first-traversal-for-a-graph/1",
+        "id": "1d079d62-783d-405f-85f0-3f67ac0bf7b2"
+    },
+    {
+        "topic": "Graph",
+        "question": "BFS",
+        "difficulty": "Medium",
+        "link": "practice.geeksforgeeks.org/problems/bfs-traversal-of-graph/1",
+        "id": "e8a92119-6709-4d37-b413-ddf4d8b1358c"
+    },
+    {
+        "topic": "Graph",
+        "question": "Detect A cycle in Undirected Graph using BFS",
+        "difficulty": "Hard",
+        "link": "practice.geeksforgeeks.org/problems/detect-cycle-in-an-undirected-graph/1",
+        "id": "770eb6f0-4957-4240-8942-6186f1d7897b"
+    },
+    {
+        "topic": "Graph",
+        "question": "Detect A cycle in Undirected Graph using DFS",
+        "difficulty": "Hard",
+        "link": "practice.geeksforgeeks.org/problems/detect-cycle-in-an-undirected-graph/1",
+        "id": "c753eb9f-e909-4ef8-8b5a-4aba4f8e0408"
+    },
+    {
+        "topic": "Graph",
+        "question": "Detect A cycle in a Directed Graph using DFS",
+        "difficulty": "Hard",
+        "link": "leetcode.com/problems/course-schedule/",
+        "id": "ea4cc7e7-b3ab-4caa-b808-9029ffe509a7"
+    },
+    {
+        "topic": "Graph",
+        "question": "Detect A cycle in a Directed Graph using BFS",
+        "difficulty": "Hard",
+        "link": "leetcode.com/problems/course-schedule/",
+        "id": "b1ec9807-594f-4755-95a6-160269253c02"
+    },
+    {
+        "topic": "Graph",
+        "question": "Topological Sort BFS",
+        "difficulty": "Hard",
+        "link": "practice.geeksforgeeks.org/problems/topological-sort/1",
+        "id": "5453d22c-a65e-43c0-a4e7-911deebdb9c1"
+    },
+    {
+        "topic": "Graph",
+        "question": "Topological Sort DFS",
+        "difficulty": "Hard",
+        "link": "practice.geeksforgeeks.org/problems/topological-sort/1",
+        "id": "3f370600-450d-4b3e-9fb1-52e69732da2c"
+    },
+    {
+        "topic": "Graph",
+        "question": "Number of islands",
+        "difficulty": "Hard",
+        "link": "leetcode.com/problems/number-of-islands/",
+        "id": "3d7c239e-9f17-452d-bfa9-5caade18b72b"
+    },
+    {
+        "topic": "Graph",
+        "question": "Bipartite Check using BFS",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/is-graph-bipartite/",
+        "id": "823c618f-61e5-4663-b8b6-0b8b5f24b9b5"
+    },
+    {
+        "topic": "Graph",
+        "question": "Bipartite Check using DFS",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/is-graph-bipartite/",
+        "id": "61a44d55-84a9-4c9c-8cf6-8fbaa402a283"
+    },
+    {
+        "topic": "Graph Part-II",
+        "question": "Strongly Connected Component(using KosaRaju's algo)",
+        "difficulty": "Hard",
+        "link": "leetcode.com/problems/maximum-number-of-non-overlapping-substrings/discuss/766485/kosaraju-algorithm-on",
+        "id": "6213e2b1-e639-4fb6-a2c8-4e3eb1804467"
+    },
+    {
+        "topic": "Graph Part-II",
+        "question": "Dijkstra's Algorithm",
+        "difficulty": "Hard",
+        "link": "practice.geeksforgeeks.org/problems/implementing-dijkstra-set-1-adjacency-matrix/1",
+        "id": "170fa5d7-5d68-445a-9735-ea974934267c"
+    },
+    {
+        "topic": "Graph Part-II",
+        "question": "Bellman-Ford Algo",
+        "difficulty": "Hard",
+        "link": "practice.geeksforgeeks.org/problems/negative-weight-cycle3504/1",
+        "id": "e1fb1b35-ff51-4c3d-a9f6-b62fd17886cf"
+    },
+    {
+        "topic": "Graph Part-II",
+        "question": "Floyd Warshall Algorithm",
+        "difficulty": "Hard",
+        "link": "practice.geeksforgeeks.org/problems/implementing-floyd-warshall2042/1",
+        "id": "a7bffde8-00ca-49fa-8bee-04f7ebdc8abd"
+    },
+    {
+        "topic": "Graph Part-II",
+        "question": "MST using Prim's Algo",
+        "difficulty": "Hard",
+        "link": "practice.geeksforgeeks.org/problems/minimum-spanning-tree/1",
+        "id": "f4c1cb26-6349-4508-a117-807ef07cd084"
+    },
+    {
+        "topic": "Graph Part-II",
+        "question": "MST using Kruskal's Algo",
+        "difficulty": "Hard",
+        "link": "practice.geeksforgeeks.org/problems/minimum-spanning-tree/1",
+        "id": "ccf3e4c0-15cb-45d5-9d4a-037ab1443aeb"
+    },
+    {
+        "topic": "Dynamic Programming",
+        "question": "Max Product Subarray",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/maximum-product-subarray/",
+        "id": "cc11aa18-3776-43aa-aa48-e461dae801e5"
+    },
+    {
+        "topic": "Dynamic Programming",
+        "question": "Longest Increasing Subsequence",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/longest-increasing-subsequence/",
+        "id": "e112b8a4-6a0e-4fd4-a374-a389ac719fed"
+    },
+    {
+        "topic": "Dynamic Programming",
+        "question": "Longest Common Subsequence",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/longest-common-subsequence/",
+        "id": "0e1cc322-4b62-4050-a1d4-254d0ab7bdd7"
+    },
+    {
+        "topic": "Dynamic Programming",
+        "question": "0-1 Knapsack",
+        "difficulty": "Medium",
+        "link": "practice.geeksforgeeks.org/problems/0-1-knapsack-problem0945/1",
+        "id": "056e18ed-1fc3-4c06-9b5c-1521b20fbe69"
+    },
+    {
+        "topic": "Dynamic Programming",
+        "question": "Edit Distance",
+        "difficulty": "Hard",
+        "link": "leetcode.com/problems/edit-distance/",
+        "id": "d944f567-36c0-4a4c-9306-45ed190f315c"
+    },
+    {
+        "topic": "Dynamic Programming",
+        "question": "Maximum sum increasing subsequence",
+        "difficulty": "Hard",
+        "link": "practice.geeksforgeeks.org/problems/maximum-sum-increasing-subsequence4749/1",
+        "id": "bcf1c5db-7de7-4204-b538-bed7e873f5a0"
+    },
+    {
+        "topic": "Dynamic Programming",
+        "question": "Matrix Chain Multiplication",
+        "difficulty": "Hard",
+        "link": "practice.geeksforgeeks.org/problems/matrix-chain-multiplication0303/1",
+        "id": "bb326d0e-d26a-4e28-8e63-0659715b135c"
+    },
+    {
+        "topic": "Dynamic Programming Part-II",
+        "question": "Minimum sum path in the matrix",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/minimum-path-sum/",
+        "id": "42ce5a52-0bd4-4e1b-80bb-f9591ddf403b"
+    },
+    {
+        "topic": "Dynamic Programming Part-II",
+        "question": "Coin change",
+        "difficulty": "Hard",
+        "link": "leetcode.com/problems/coin-change/",
+        "id": "1997e3df-a6fe-4bb4-a7bb-fed945c80cef"
+    },
+    {
+        "topic": "Dynamic Programming Part-II",
+        "question": "Subset Sum",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/partition-equal-subset-sum/",
+        "id": "b9da9ed9-054b-473e-8abf-0a52b9ab75cd"
+    },
+    {
+        "topic": "Dynamic Programming Part-II",
+        "question": "Rod Cutting",
+        "difficulty": "Hard",
+        "link": "practice.geeksforgeeks.org/problems/rod-cutting0840/1",
+        "id": "c4688d3e-01a9-40ee-8b5d-a2a3e782f774"
+    },
+    {
+        "topic": "Dynamic Programming Part-II",
+        "question": "Egg Dropping",
+        "difficulty": "Hard",
+        "link": "leetcode.com/problems/super-egg-drop/",
+        "id": "fd5e1205-d8f8-43a7-8844-653db037054f"
+    },
+    {
+        "topic": "Dynamic Programming Part-II",
+        "question": "Word Break",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/word-break/",
+        "id": "26fbd4f7-fae8-48dc-b75c-4e1793c88fb1"
+    },
+    {
+        "topic": "Dynamic Programming Part-II",
+        "question": "Palindrome Partitioning (MCM Variation)",
+        "difficulty": "Hard",
+        "link": "leetcode.com/problems/palindrome-partitioning-ii/",
+        "id": "80a66ce2-3f89-4242-81e6-afd8ac6d554b"
+    },
+    {
+        "topic": "Dynamic Programming Part-II",
+        "question": "Maximum profit in Job scheduling",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/maximum-profit-in-job-scheduling/",
+        "id": "ae8dc0b7-ade8-4695-b1a6-26680885779b"
+    },
+    {
+        "topic": "Trie",
+        "question": "Implement Trie (Prefix Tree)",
+        "difficulty": "Hard",
+        "link": "leetcode.com/problems/implement-trie-prefix-tree/",
+        "id": "d995fbc5-9573-4d9f-9708-b6d0563bd0b2"
+    },
+    {
+        "topic": "Trie",
+        "question": "Implement Trie - 2 (Prefix Tree)",
+        "difficulty": "Hard",
+        "link": "leetcode.com/problems/implement-trie-ii-prefix-tree/",
+        "id": "31d8852c-5cb1-4bdb-8cb2-5f2e6bb6f8da"
+    },
+    {
+        "topic": "Trie",
+        "question": "Longest String with All Prefixes",
+        "difficulty": "Medium",
+        "link": "codingninjas.com/codestudio/problems/complete-string_2687860",
+        "id": "c279ed66-a759-4536-b9a2-70441ac96b4a"
+    },
+    {
+        "topic": "Trie",
+        "question": "Number of Distinct Substrings in a String",
+        "difficulty": "Hard",
+        "link": "codingninjas.com/codestudio/problems/count-distinct-substrings_985292",
+        "id": "633665be-d22a-48a2-a522-df42eef39f65"
+    },
+    {
+        "topic": "Trie",
+        "question": "Power Set (this is very important)",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/subsets/",
+        "id": "69bba4d6-4ed5-44bc-8430-36cd89f207a1"
+    },
+    {
+        "topic": "Trie",
+        "question": "Maximum XOR of two numbers in an array",
+        "difficulty": "Medium",
+        "link": "leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/",
+        "id": "4709e7c7-7cb7-43c7-b947-92b791ca54b0"
+    },
+    {
+        "topic": "Trie",
+        "question": "Maximum XOR With an Element From Array",
+        "difficulty": "Hard",
+        "link": "leetcode.com/problems/maximum-xor-with-an-element-from-array/",
+        "id": "1c1a63f7-76c6-4fcd-800a-5c413d9ca55f"
+    }
+]

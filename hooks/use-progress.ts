@@ -4,7 +4,7 @@ import { useUserProgress, useUpdateProgress } from "./use-api";
 
 interface Progress {
   id: string;
-  question: string;
+  questionId: string;
   topic: string;
   solved: boolean;
   createdAt: string;
@@ -27,11 +27,11 @@ export function useProgress() {
   const { progress, isLoading, error, mutateProgress } = useUserProgress();
   const { updateProgress: updateProgressMutation, isUpdating, error: updateError } = useUpdateProgress();
 
-  const updateProgress = async (question: string, topic: string, solved: boolean) => {
+  const updateProgress = async (questionId: string, topic: string, solved: boolean) => {
     if (status !== "authenticated") return false;
 
     try {
-      const result = await updateProgressMutation({ question, topic, solved });
+      const result = await updateProgressMutation({ questionId, topic, solved });
       return !!result;
     } catch (error) {
       console.error("Error updating progress:", error);
@@ -39,8 +39,8 @@ export function useProgress() {
     }
   };
 
-  const isQuestionSolved = (question: string) => {
-    return progress.some((p) => p.question === question && p.solved);
+  const isQuestionSolved = (questionId: string) => {
+    return progress.some((p) => p.questionId === questionId && p.solved);
   };
 
   // Calculate daily completion data for strike grid

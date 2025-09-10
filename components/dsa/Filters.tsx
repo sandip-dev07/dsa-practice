@@ -13,11 +13,15 @@ import type {
   DifficultyCount,
   CompletedFilter,
 } from "@/types/question-types";
+import type { SheetType } from "@/data/questions";
+import { sheetOptions } from "@/data/questions";
 
 interface FiltersProps {
   search: string;
   onSearchChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSearchSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  selectedSheet: SheetType;
+  onSheetChange: (value: SheetType) => void;
   topic: string;
   onTopicChange: (value: string) => void;
   difficulty: string;
@@ -33,6 +37,8 @@ const FiltersComponent: React.FC<FiltersProps> = ({
   search,
   onSearchChange,
   onSearchSubmit,
+  selectedSheet,
+  onSheetChange,
   topic,
   onTopicChange,
   difficulty,
@@ -64,6 +70,10 @@ const FiltersComponent: React.FC<FiltersProps> = ({
     onCompletedChange(value);
   }, [onCompletedChange]);
 
+  const handleSheetChange = useCallback((value: SheetType) => {
+    onSheetChange(value);
+  }, [onSheetChange]);
+
   // Memoized topic options to prevent unnecessary re-renders
   const topicOptions = useMemo(() => (
     topics.map((topicName) => (
@@ -88,6 +98,15 @@ const FiltersComponent: React.FC<FiltersProps> = ({
     <SelectItem key="pending" value="pending">Pending</SelectItem>,
   ], []);
 
+  // Memoized sheet options
+  const sheetSelectOptions = useMemo(() => (
+    sheetOptions.map((sheet) => (
+      <SelectItem key={sheet.value} value={sheet.value}>
+        {sheet.label}
+      </SelectItem>
+    ))
+  ), []);
+
   return (
     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4 sm:mb-6">
       <form onSubmit={handleSearchSubmit} className="relative">
@@ -103,7 +122,16 @@ const FiltersComponent: React.FC<FiltersProps> = ({
         </button>
       </form>
 
-      <div className="grid grid-cols-3 gap-2">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+        <Select value={selectedSheet} onValueChange={handleSheetChange}>
+          <SelectTrigger>
+            <SelectValue placeholder="Sheet" />
+          </SelectTrigger>
+          <SelectContent>
+            {sheetSelectOptions}
+          </SelectContent>
+        </Select>
+
         <div className="w-full">
           <Select value={topic} onValueChange={handleTopicChange}>
             <SelectTrigger>

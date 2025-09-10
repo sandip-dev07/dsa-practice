@@ -7,7 +7,7 @@ import { useSession } from "next-auth/react";
 // Types for API responses
 interface ProgressItem {
   id: string;
-  question: string;
+  questionId: string;
   topic: string;
   solved: boolean;
   createdAt: string;
@@ -21,13 +21,13 @@ interface NotesData {
 }
 
 interface UpdateProgressData {
-  question: string;
+  questionId: string;
   topic: string;
   solved: boolean;
 }
 
 interface SaveNotesData {
-  question: string;
+  questionId: string;
   topic: string;
   content: string;
 }
@@ -94,12 +94,12 @@ export function useUpdateProgress() {
 }
 
 // Hook for fetching notes for a specific question/topic
-export function useNotes(question: string, topic: string) {
+export function useNotes(questionId: string, topic: string) {
   const { data: session, status } = useSession();
 
   const { data, error, isLoading, mutate: mutateNotes } = useSWR<NotesData | null>(
-    status === "authenticated" && question && topic
-      ? `/api/notes?question=${encodeURIComponent(question)}&topic=${encodeURIComponent(topic)}`
+    status === "authenticated" && questionId && topic
+      ? `/api/notes?questionId=${encodeURIComponent(questionId)}&topic=${encodeURIComponent(topic)}`
       : null,
     fetcher,
     {
